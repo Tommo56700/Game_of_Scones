@@ -9,7 +9,7 @@
 "Quest 1: Blood, Sweat and Tears"
 "Find all 4 ingredients to make the ultimate scone"
 
-	"Congratulations, you found the Self Rasing Flour"
+	"Congratulations, you found the Self-Raisng Flour"
 	"Congratulations, you found the Unsalted Butter"
 	"Congratulations, you found the Free Range Eggs"
 	"Congratulations, you found the Semi-Skimmed Milk"
