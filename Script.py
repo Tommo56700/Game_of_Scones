@@ -9,10 +9,10 @@
 "Quest 1: Blood, Sweat and Tears"
 "Find all 4 ingredients to make the ultimate scone"
 
-	"Congratulations, you found the Flour"
-	"Congratulations, you found the Sugar"
-	"Congratulations, you found the Egg"
-	"Congratulations, you found the Milk"
+	"Congratulations, you found the Self Rasing Flour"
+	"Congratulations, you found the Unsalted Butter"
+	"Congratulations, you found the Free Range Eggs"
+	"Congratulations, you found the Semi-Skimmed Milk"
 
 "Quest 2: The Clock is Ticking"
 "Find your way back to Mary Berry before she gets hungry!"
