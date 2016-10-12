@@ -8,6 +8,21 @@ from colorama import Fore, Back, Style
 
 
 
+def opening():
+    """This function prints all of the opening text for the game.
+    """
+    input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
+    print("In a world where baking is the only form of solice, one chef strives to please the formidable Mary Berry,")
+    input("you have set yourself on a quest to source the rarest ingrediants in all four kingdoms.")
+    print("In your travels you will have to solve complexing puzzles,")
+    input("battle the most ferocious beasts and bake the tastiest scone the world has ever known.\n")
+    print("Will you make it through these rigorous challenges?")
+    print("Find out now in...\n")
+    input("Game of Scones!\n\n")
+
+    input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
+
+
 def list_of_items(items):
     """This function takes a list of items (see items.py for the definition) and
     returns a comma-separated list of item names (as a string).
@@ -59,10 +74,10 @@ def print_room(room):
 
     # Display room name
     print("")
-    print(Fore.RED + "-------------------------- " + room["name"].upper() + " --------------------------" + Style.RESET_ALL)
+    print(Fore.RED + Style.BRIGHT + "-------------------------- " + room["name"].upper() + " --------------------------" + Style.RESET_ALL)
     print("")
     # Display room description
-    print(room["description"])
+    print(Fore.YELLOW + room["description"] + Style.RESET_ALL)
     print("")
 
 
@@ -83,7 +98,7 @@ def print_exit(direction, leads_to):
     GO <EXIT NAME UPPERCASE> to <where it leads>.
     """
 
-    print("GO " + direction.upper() + " to " + leads_to + ".")
+    print(Style.BRIGHT + "GO " + direction.upper() + Style.NORMAL + " to " + leads_to + ".")
 
 
 def print_menu(exits, room_items, inv_items):
@@ -103,7 +118,7 @@ def print_menu(exits, room_items, inv_items):
     "DROP <ITEM ID> to drop <item name>."
     """
 
-    print("You can:")
+    print(Fore.YELLOW + "You can:")
     # Iterate over available exits
     for direction in exits:
         # Print the exit name and where it leads to
@@ -235,10 +250,10 @@ def player_input():
     function before being returned.
     """
 
-    print("What do you want to do?")
+    print("What do you want to do?" + Style.RESET_ALL)
 
     # Read player's input
-    user_input = input("> ")
+    user_input = input("> " + Fore.CYAN)
 
     # Normalise the input
     normalised_user_input = normalise_input(user_input)
@@ -260,6 +275,8 @@ def move(exits, direction):
 
 # This is the entry point of our program
 def main():
+
+    opening()
 
     # Main game loop
     running = True
