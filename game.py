@@ -1,17 +1,20 @@
 #!/usr/bin/python3
 
-from map import rooms
+import random
+
+from map import rooms, puzzle_rooms
 from player import *
 from items import *
 from gameparser import *
-from colorama import Fore, Back, Style
+#from colorama import Fore, Back, Style
 
 
 
 def opening():
     """This function prints all of the opening text for the game.
     """
-    input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
+    #input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
+    input("\nWelcome!\n")
     print("In a world where baking is the only form of solice, one chef strives to please the formidable Mary Berry,")
     input("you have set yourself on a quest to source the rarest ingrediants in all four kingdoms.")
     print("In your travels you will have to solve complexing puzzles,")
@@ -20,7 +23,29 @@ def opening():
     print("Find out now in...\n")
     input("Game of Scones!\n\n")
 
-    input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
+    #input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
+    input("Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n")
+
+
+def init_rooms(rooms, puzzle_rooms):
+    """This function randomly selects the puzzle rooms to be used in each location
+    and updates the dict of rooms
+    """
+
+    rand_rooms = random.sample(puzzle_rooms, 4)
+
+    exits = [{"north": "room_boss_1", "south": "room_centre"}, {"east": "room_boss_2", "west": "room_centre"}, {"south": "room_boss_3", "north": "room_centre"}, {"west": "room_boss_4", "east": "room_centre"}]
+    directions = ["north", "east", "south", "west"]
+    inverse_directions = ["south", "west", "north", "east"]
+
+    for i in range(len(rand_rooms)):
+        rand_rooms[i]["exits"] = exits[i]
+        rand_rooms[i]["id"] = "room_puzzle_" + str(i + 1)
+        rooms["room_centre"]["exits"][directions[i]] = rand_rooms[i]["id"]
+        rooms[("room_boss_" + str(i + 1))]["exits"][inverse_directions[i]] = rand_rooms[i]["id"]
+        rooms[("room_puzzle_" + str(i + 1))] = rand_rooms[i]
+
+    return rooms
 
 
 def list_of_items(items):
@@ -74,10 +99,12 @@ def print_room(room):
 
     # Display room name
     print("")
-    print(Fore.RED + Style.BRIGHT + "-------------------------- " + room["name"].upper() + " --------------------------" + Style.RESET_ALL)
+    #print(Fore.RED + Style.BRIGHT + "-------------------------- " + room["name"].upper() + " --------------------------" + Style.RESET_ALL)
+    print("-------------------------- " + room["name"].upper() + " --------------------------")
     print("")
     # Display room description
-    print(Fore.YELLOW + room["description"] + Style.RESET_ALL)
+    #print(Fore.YELLOW + room["description"] + Style.RESET_ALL)
+    print(room["description"])
     print("")
 
 
@@ -98,7 +125,8 @@ def print_exit(direction, leads_to):
     GO <EXIT NAME UPPERCASE> to <where it leads>.
     """
 
-    print(Style.BRIGHT + "GO " + direction.upper() + Style.NORMAL + " to " + leads_to + ".")
+    #print(Style.BRIGHT + "GO " + direction.upper() + Style.NORMAL + " to " + leads_to + ".")
+    print("GO " + direction.upper() + " to " + leads_to + ".")
 
 
 def print_menu(exits, room_items, inv_items):
@@ -118,7 +146,8 @@ def print_menu(exits, room_items, inv_items):
     "DROP <ITEM ID> to drop <item name>."
     """
 
-    print(Fore.YELLOW + "You can:")
+    #print(Fore.YELLOW + "You can:")
+    print("You can:")
     # Iterate over available exits
     for direction in exits:
         # Print the exit name and where it leads to
@@ -250,10 +279,12 @@ def player_input():
     function before being returned.
     """
 
-    print("What do you want to do?" + Style.RESET_ALL)
+    #print("What do you want to do?" + Style.RESET_ALL)
+    print("What do you want to do?")
 
     # Read player's input
-    user_input = input("> " + Fore.CYAN)
+    #user_input = input("> " + Fore.CYAN)
+    user_input = input("> ")
 
     # Normalise the input
     normalised_user_input = normalise_input(user_input)
@@ -275,7 +306,9 @@ def move(exits, direction):
 
 # This is the entry point of our program
 def main():
+    global rooms
 
+    rooms = init_rooms(rooms, puzzle_rooms)
     opening()
 
     # Main game loop
