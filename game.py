@@ -34,8 +34,8 @@ def init_rooms(rooms, puzzle_rooms):
 
     rand_rooms = random.sample(puzzle_rooms, 4)
 
-    exits = [{"north": "room_boss_1", "south": "room_centre"}, {"east": "room_boss_2", "west": "room_centre"},
-            {"south": "room_boss_3", "north": "room_centre"}, {"west": "room_boss_4", "east": "room_centre"}]
+    exits = [{"north": "room_boss_1", "south": "room_centre"}, {"east": "room_boss_2", "west": "room_centre"}, {"south": "room_boss_3", "north": "room_centre"}, {"west": "room_boss_4", "east": "room_centre"}]
+    
     directions = ["north", "east", "south", "west"]
     inverse_directions = ["south", "west", "north", "east"]
 
