@@ -4,4 +4,4 @@ from map import rooms
 inventory = []
 
 # Start game at the reception
-current_room = rooms["centre"]
+current_room = rooms["room_centre"]
