@@ -28,16 +28,10 @@ def list_of_items(items):
     returns a comma-separated list of item names (as a string).
     """
 
-    item_list = [item["name"] for item in items if "name" in item]
-    formatted_item_list = ""
-
-    for element in item_list:
-        if item_list[0] == element:
-            formatted_item_list += element
-        else:
-            formatted_item_list += ", " + element
-
-    return formatted_item_list
+    item_list = []
+    for i in items:
+        item_list.append(i["name"])
+    return(", ".join(item_list))
 
 
 def print_room_items(room):
