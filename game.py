@@ -307,7 +307,7 @@ def execute_event(event, last_commad):
     if event == "maze complete":
         print("You work your way back through the maze to the centre room.")
         current_room = rooms["room_centre"]
-    elif event == "boss1":
+    elif event == "boss":
         boss1_event()
 
 
@@ -371,7 +371,7 @@ def boss1_event():
     input("Press enter to fight the boss!")
 
     #When boss is defeated:
-    print("You have defeated the boss, you can now take the FLOUR!")
+    print("You have defeated the boss, you can now take their loot!")
     del current_room["event"]
 
     # Show the menu with possible actions

@@ -97,7 +97,7 @@ room_boss_1 = {
 
     "exits": {},
 
-    "event": "boss1",
+    "event": "boss",
 
     "items": [item_flour]
 }
@@ -111,6 +111,8 @@ room_boss_2 = {
 
     "exits": {},
 
+    "event": "boss",
+
     "items": [item_butter]
 }
 
@@ -123,6 +125,8 @@ room_boss_3 = {
 
     "exits": {},
 
+    "event": "boss",
+
     "items": [item_milk]
 }
 
@@ -134,6 +138,8 @@ room_boss_4 = {
     "story": "*** description ***",
 
     "exits": {},
+
+    "event": "boss",
 
     "items": [item_eggs]
 }
