@@ -3,6 +3,8 @@
 import random
 
 from map import rooms, puzzle_rooms
+from maze import maze_rooms
+
 from player import *
 from items import *
 from gameparser import *
@@ -24,7 +26,7 @@ def opening():
     input("Game of Scones!\n\n")
 
     #input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
-    input("Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n")
+    input("Quest 1: BLOOD, SWEAT AND TEARS\nFind all 4 ingredients to make the ultimate scone!\n")
 
 
 def init_rooms(rooms, puzzle_rooms):
@@ -35,7 +37,7 @@ def init_rooms(rooms, puzzle_rooms):
     rand_rooms = random.sample(puzzle_rooms, 4)
 
     exits = [{"north": "room_boss_1", "south": "room_centre"}, {"east": "room_boss_2", "west": "room_centre"}, {"south": "room_boss_3", "north": "room_centre"}, {"west": "room_boss_4", "east": "room_centre"}]
-    
+
     directions = ["north", "east", "south", "west"]
     inverse_directions = ["south", "west", "north", "east"]
 
@@ -99,7 +101,7 @@ def print_room(room):
     print("")
     # Display room description
     #print(Fore.YELLOW + room["description"] + Style.RESET_ALL)
-    print(room["description"])
+    print(room["story"])
     print("")
 
 
@@ -177,7 +179,7 @@ def execute_go(direction):
     global current_room
 
     if is_valid_exit(current_room["exits"], direction):
-        current_room = move(current_room["exits"], direction)
+        current_room = move(rooms, current_room["exits"], direction)
         print("Moving to " + current_room["name"] + "...")
         return True
     else:
@@ -235,7 +237,7 @@ def execute_help():
     if the player is stuck.
     """
 
-    print(current_room["description"])
+    print(current_room["story"])
 
 
 def execute_command(command):
@@ -287,7 +289,7 @@ def player_input():
     return normalised_user_input
 
 
-def move(exits, direction):
+def move(rooms, exits, direction):
     """This function returns the room into which the player will move if, from a
     dictionary "exits" of avaiable exits, they choose to move towards the exit
     with the name given by "direction".
@@ -295,6 +297,93 @@ def move(exits, direction):
 
     # Next room to go to
     return rooms[exits[direction]]
+
+
+def execute_event(event, last_commad):
+    global current_room
+
+    if event == "maze":
+        maze_event(maze_rooms, last_commad)
+    if event == "maze complete":
+        print("You work your way back through the maze to the centre room.")
+        current_room = rooms["room_centre"]
+    elif event == "boss1":
+        boss1_event()
+
+
+def maze_event(maze_rooms, last_commad):
+    global current_room
+
+    print("")
+    print_room(current_room)
+    print_inventory_items(inventory)
+
+    maze_room = maze_rooms["maze_01"]
+    smell = 0
+
+    while True:
+        if maze_room["weight"] > smell:
+            print("The smell of baked bread gets stronger.")
+        elif maze_room["weight"] < smell:
+            print("The smell of baked bread gets weaker.")
+        else:
+            print("You can smell freshly baked bread in the distance.")
+
+        smell = maze_room["weight"]
+
+        if maze_room["id"] == "maze_44":
+            current_room["event"] = "maze complete"
+            current_room = move(rooms, current_room["exits"], last_commad[1])
+            break
+
+        print("\nYou can:")
+        # Iterate over available exits
+        for direction in maze_room["exits"]:
+            # Print possible exits
+            print("GO " + direction.upper())
+
+        valid_input = False
+        while not valid_input:
+            # Ask the player for a response
+            print("")
+            command = player_input()
+
+
+            if len(command) == 0 or command[0] != "go":
+                print("You cannot do that.\n")
+            else:
+                if len(command) > 1:
+                    if is_valid_exit(maze_room["exits"], command[1]):
+                        maze_room = move(maze_rooms, maze_room["exits"], command[1])
+                        print("Moving " + command[1] + "...\n")
+                        valid_input = True
+                    else:
+                        print("You cannot go there.")
+                else:
+                    print("Go where?\n")
+
+
+def boss1_event():
+    print_room(current_room)
+    print_inventory_items(inventory)
+    
+    #Add combat stuff here
+    input("Press enter to fight the boss!")
+
+    #When boss is defeated:
+    print("You have defeated the boss, you can now take the FLOUR!")
+    del current_room["event"]
+
+    # Show the menu with possible actions
+    print_menu(current_room["exits"], current_room["items"], inventory)
+
+    valid_input = False
+    while not valid_input:
+        # Ask the player for a response
+        command = player_input()
+
+        # Execute the player's command
+        valid_input = execute_command(command)
 
 
 
@@ -309,21 +398,25 @@ def main():
     # Main game loop
     running = True
     while running:
-        valid_input = False
 
-        # Display game status (room description, inventory etc.)
-        print_room(current_room)
-        print_inventory_items(inventory)
+        if "event" in current_room.keys():
+            execute_event(current_room["event"], last_commad)
+        else:
+            valid_input = False
 
-        # Show the menu with possible actions
-        print_menu(current_room["exits"], current_room["items"], inventory)
+            # Display game status (room description, inventory etc.)
+            print_room(current_room)
+            print_inventory_items(inventory)
 
-        while not valid_input:
-            # Ask the player for a response
-            command = player_input()
+            # Show the menu with possible actions
+            print_menu(current_room["exits"], current_room["items"], inventory)
 
-            # Execute the player's command
-            valid_input = execute_command(command)
+            while not valid_input:
+                # Ask the player for a response
+                command = player_input()
+                last_commad = command
+                # Execute the player's command
+                valid_input = execute_command(command)
 
         if len(inventory) == 4 and current_room == rooms["centre"]:
             running = False

@@ -7,7 +7,7 @@ room_centre = {
 
     "name": "Main Baking Room",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -17,13 +17,15 @@ room_centre = {
 room_puzzle_maze = {
     "id": "",
 
-    "name": "Mel's Maze",
+    "name": "Store Room",
 
-    "description": "*** description ***",
+    "story": "You try to push the door open but it wont budge, there is something heavy behind it.\nIt's as if something is holding the door...\nYou push with all of your strength...\nThe door gives, and you barge into a dark storeroom filled to the roof with boxes.\nThere is a makeshift path, but you can't see a clear way through.\nIn the distance you can smell freshly baked bread.\n\nMiniquest: FOLLOW YOUR NOSE\nFind your way through the maze of boxes!",
 
     "exits":  {},
 
-    "items": []
+    "items": [],
+
+    "event": "maze"
 }
 
 room_puzzle_2 = {
@@ -31,7 +33,7 @@ room_puzzle_2 = {
 
     "name": "Sue's Cellar",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -43,7 +45,7 @@ room_puzzle_3 = {
 
     "name": "Paul's Pantry",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -55,7 +57,7 @@ room_puzzle_4 = {
 
     "name": "Dough Room",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -67,7 +69,7 @@ room_puzzle_5 = {
 
     "name": "Proving Room",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -79,7 +81,7 @@ room_puzzle_6 = {
 
     "name": "Walk-in Freezer",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -91,9 +93,11 @@ room_boss_1 = {
 
     "name": "boss_1",
 
-    "description": "*** description ***",
+    "story": "*** story ***",
 
     "exits": {},
+
+    "event": "boss1",
 
     "items": [item_flour]
 }
@@ -103,7 +107,7 @@ room_boss_2 = {
 
     "name": "boss_2",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -115,7 +119,7 @@ room_boss_3 = {
 
     "name": "boss_3",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
@@ -127,7 +131,7 @@ room_boss_4 = {
 
     "name": "boss_4",
 
-    "description": "*** description ***",
+    "story": "*** description ***",
 
     "exits": {},
 
