@@ -31,7 +31,7 @@ Pantry
 You are in the pantry. Surrounding you from all directions are shelves towering
 all the way to the ceiling, stacked full of pastries, cakes, loafs of bread and
 a plethora of cooking ingredients. You notice a chest with the lid slightly
-ajar. On the far wall is a door Walk in freezer.  In the centre of the room
+ajar. On the far wall is a large freezer door.  In the centre of the room
 (insert puzzle).  
 
 (Chest – Open chest – In the chest you find a large wooden rolling pin.
@@ -45,7 +45,7 @@ because of the temperature, but instead because of what stands in front of you.
 A zombie like Paul Hollywood stands with his arms crossed, staring coldly at you.
 His eyes black and cavernous. His heart has been turned to ice Mary Berry and now
 his only sanctuary is in the confines of the  walk in freezer. You notice in his
-back pocket a key made from ginger bread.  
+back pocket that there's a key made from ginger bread.  
 
 (Battle Paul Hollywood – use rolling pin – take key) 
 
@@ -55,7 +55,7 @@ You descend into the under belly of Mary’s fortress of pain. The cellar is dar
 and damp, the only light coming from a few flickering candles hung on the walls.
 Empty crates and wooden pallets scatter the room. You notice on the floor an
 elaborate rug, an heirloom of the Berry family no doubt. One of the corners is
-upturned slightly. On the east wall is a door labelled store room.  In the centre
+upturned slightly. On the far wall is a door labelled store room.  In the centre
 of the room is (insert puzzle).  
 
 (Move rug – There is a trap door underneath – open trap door – you have
@@ -65,13 +65,13 @@ unsuspecting by stander).
 
 Store room 
 
-You enter the store room. You walk down a narrow hallway where at the end the
-room opens up. You can hear a mumbling of voices which get louder and clearer as
-you approach the room. There you find Mel and Sue cracking jokes full of
-innuendo, some so bad that it pains your ears. It takes them a moment to notice
-you but they then fall silent as they turn to face you, their eyes piercing like
-daggers in your chest. You notice a key made of short bread in Mel’s jacket
-pocket. 
+You enter the store room. As you walk down a narrow hallway you notice that it 
+becomes continually larger with each step you take. You can hear a mumbling of 
+voices which get louder and clearer as you approach the room. There you find Mel 
+and Sue cracking jokes full of innuendo, some so bad that it pains your ears. It 
+takes them a moment to notice you but they then fall silent as they turn to face 
+you, their eyes piercing like daggers in your chest. You notice a key made of 
+short bread in Mel’s jacket pocket. 
 
 (Fight Mel and Sue – take key – return to main room) 
 
@@ -87,7 +87,7 @@ unfold. And the far end of the room is a great fiery furnace, the heat from
 which is scolding even from this distance. You have well and truly descended
 into Mary’s hell. In front of the furnace you see four ingredients laid out on a
 table; mill, flour, butter and eggs. But there in front of you is a sight that
-fills you with dread, 5 feet and 3 inches of the pastry queen herself. Stairs
+fills you with dread, 5 feet and 3 inches of the pastry queen herself. She stairs
 you dead in the eye, points are you with her bony finger and an evil, wry smile
 spreads across her face. (fight Mary Berry)  
 
