@@ -34,18 +34,18 @@ def init_rooms(rooms, puzzle_rooms):
     and updates the dict of rooms
     """
 
-    rand_rooms = random.sample(puzzle_rooms, 4)
+    rand_rooms = random.sample(puzzle_rooms, 3)
 
-    exits = [{"north": "room_boss_1", "south": "room_centre"}, {"east": "room_boss_2", "west": "room_centre"}, {"south": "room_boss_3", "north": "room_centre"}, {"west": "room_boss_4", "east": "room_centre"}]
+    exits = [{"east": "room_boss_2", "west": "room_centre"}, {"south": "room_boss_3", "north": "room_centre"}, {"west": "room_boss_4", "east": "room_centre"}]
 
-    directions = ["north", "east", "south", "west"]
-    inverse_directions = ["south", "west", "north", "east"]
+    directions = ["east", "south", "west"]
+    inverse_directions = ["west", "north", "east"]
 
     for i in range(len(rand_rooms)):
         rand_rooms[i]["exits"] = exits[i]
         rand_rooms[i]["id"] = "room_puzzle_" + str(i + 1)
         rooms["room_centre"]["exits"][directions[i]] = rand_rooms[i]["id"]
-        rooms[("room_boss_" + str(i + 1))]["exits"][inverse_directions[i]] = rand_rooms[i]["id"]
+        rooms[("room_boss_" + str(i + 2))]["exits"][inverse_directions[i]] = rand_rooms[i]["id"]
         rooms[("room_puzzle_" + str(i + 1))] = rand_rooms[i]
 
     return rooms
@@ -304,11 +304,13 @@ def execute_event(event, last_commad):
 
     if event == "maze":
         maze_event(maze_rooms, last_commad)
-    if event == "maze complete":
+    elif event == "maze complete":
         print("You work your way back through the maze to the centre room.")
         current_room = rooms["room_centre"]
     elif event == "boss":
         boss1_event()
+    elif event == "trivia":
+        trivia_event()
 
 
 def maze_event(maze_rooms, last_commad):
@@ -371,7 +373,7 @@ def boss1_event():
     input("Press enter to fight the boss!")
 
     #When boss is defeated:
-    print("You have defeated the boss, you can now take their loot!")
+    print("You have defeated the boss, you can now take their loot!\n")
     del current_room["event"]
 
     # Show the menu with possible actions
@@ -386,6 +388,24 @@ def boss1_event():
         valid_input = execute_command(command)
 
 
+def trivia_event():
+    print_room(current_room)
+    print_inventory_items(inventory)
+
+    input("Trivia question")
+
+    print("Correct! You may continue on your quest.")
+    del current_room["event"]
+
+    print_menu(current_room["exits"], current_room["items"], inventory)
+
+    valid_input = False
+    while not valid_input:
+        # Ask the player for a response
+        command = player_input()
+
+        # Execute the player's command
+        valid_input = execute_command(command)
 
 
 # This is the entry point of our program
@@ -418,7 +438,7 @@ def main():
                 # Execute the player's command
                 valid_input = execute_command(command)
 
-        if len(inventory) == 4 and current_room == rooms["centre"]:
+        if len(inventory) == 4 and current_room == rooms["room_centre"]:
             running = False
 
     print("\nYou return to the oven and bake the world's best scone!\n****************** You win! ******************")

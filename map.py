@@ -9,19 +9,19 @@ room_centre = {
 
     "story": "*** description ***",
 
-    "exits": {},
+    "exits": {"north": "room_puzzle_maze"},
 
     "items": []
 }
 
 room_puzzle_maze = {
-    "id": "",
+    "id": "room_puzzle_maze",
 
     "name": "Store Room",
 
     "story": "You try to push the door open but it wont budge, there is something heavy behind it.\nIt's as if something is holding the door...\nYou push with all of your strength...\nThe door gives, and you barge into a dark storeroom filled to the roof with boxes.\nThere is a makeshift path, but you can't see a clear way through.\nIn the distance you can smell freshly baked bread.\n\nMiniquest: FOLLOW YOUR NOSE\nFind your way through the maze of boxes!",
 
-    "exits":  {},
+    "exits":  {"north": "room_boss_mary", "south": "room_centre"},
 
     "items": [],
 
@@ -76,7 +76,7 @@ room_puzzle_5 = {
     "items": []
 }
 
-room_puzzle_6 = {
+room_puzzle_trivia = {
     "id": "",
 
     "name": "Walk-in Freezer",
@@ -85,17 +85,19 @@ room_puzzle_6 = {
 
     "exits": {},
 
+    "event": "trivia",
+
     "items": []
 }
 
-room_boss_1 = {
-    "id": "room_boss_1",
+room_boss_mary = {
+    "id": "room_boss_mary",
 
     "name": "boss_1",
 
     "story": "*** story ***",
 
-    "exits": {},
+    "exits": {"south": "room_puzzle_maze"},
 
     "event": "boss",
 
@@ -147,10 +149,11 @@ room_boss_4 = {
 
 rooms = {
     "room_centre": room_centre,
-    "room_boss_1": room_boss_1,
+    "room_puzzle_maze": room_puzzle_maze,
+    "room_boss_mary": room_boss_mary,
     "room_boss_2": room_boss_2,
     "room_boss_3": room_boss_3,
     "room_boss_4": room_boss_4
 }
 
-puzzle_rooms = [room_puzzle_maze, room_puzzle_2, room_puzzle_3, room_puzzle_4, room_puzzle_5, room_puzzle_6]
+puzzle_rooms = [room_puzzle_2, room_puzzle_3, room_puzzle_4, room_puzzle_5, room_puzzle_trivia]
