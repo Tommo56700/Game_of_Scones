@@ -21,17 +21,17 @@ the centre of the Red Velvet Keep, the palace from which Mary Berry pulls the
 strings over the Seven Kingdoms. The room is airily chilling.
 The air is filled with flour dust, illuminated by strands of light beaming in
 from the windows. The walls are adorned with paintings of baked goods and in
-the centre is a stone statue of a croquembouche.  On the north wall is a large,
+the centre is a stone statue of a croquembouche.  On the far wall is a large,
 arched doorway with two key holes. One appears to be made from ginger bread,
-the other from shortbread. To the west is a door labelled Pantry. To the east
-is a door labelled Cellar, and a stairway leading down.  
+the other from shortbread. On one side is a door labelled Pantry. Whilst, on the 
+other side is a door labelled Cellar, and a stairway leading down.  
 
 Pantry 
 
 You are in the pantry. Surrounding you from all directions are shelves towering
 all the way to the ceiling, stacked full of pastries, cakes, loafs of bread and
 a plethora of cooking ingredients. You notice a chest with the lid slightly
-ajar. On the west wall is a door Walk in freezer.  In the centre of the room
+ajar. On the far wall is a door Walk in freezer.  In the centre of the room
 (insert puzzle).  
 
 (Chest – Open chest – In the chest you find a large wooden rolling pin.
