@@ -35,7 +35,7 @@ inventory = {}
 def combat(enemy_name):               #this code currently serves as a basic framework for what I think should be possible with the combat system. However I can't really go too deep without seeing what else is going on in the program.
     
     turn = 0                #Initialise setup variables. Ensure turn and player_turn are reset.
-    player_turn = false
+    player_turn = False
 
     player_strength = player["strength"]        #Assign values to player/enemy stats for combat.
     player_health = player["health"]
@@ -46,16 +46,16 @@ def combat(enemy_name):               #this code currently serves as a basic fra
     enemy_health = enemy["name"["health"]]
     enemy_speed = enemy["name"["speed"]]
     
-    while (player_health > 0) or (enemy_health > 0) or (retreat = true):                            #until someone dies or retreats, repeat
+    while (player_health > 0) or (enemy_health > 0) or (retreat = True):                            #until someone dies or retreats, repeat
         player_input = input("What do you want to do?") 
-            if (turn == 0 and player_speed > enemy_speed) or (player_turn == true):                     #determine who attacks first
+            if (turn == 0 and player_speed > enemy_speed) or (player_turn == True):                     #determine who attacks first
                 if player_input = "attack":
                     player_attack = strength * weapon_multiplier * random.uniform(0.8,1.2)                  #calculate damage done by player. Base strength multiplied by weapon modifier +-20%
                     enemy_health = enemy_health-player_attack                                               #inflict damage
-                    player_turn = false                                                                     #forces next turn to be enemy attack
+                    player_turn = False                                                                     #forces next turn to be enemy attack
                     turn = turn+1                                                                           #increment turn counter
             
-                    print("You attack " + enemy_name + " for " + player_attack + " points of damage."       #inform player of damage dealt
+                    print("You attack " + enemy_name + " for " + player_attack + " points of damage.")       #inform player of damage dealt
                     time.sleep(2)
                     print(enemy_name + " has " + enemy_health + " hitpoints remaining.")
                           
@@ -78,14 +78,14 @@ def combat(enemy_name):               #this code currently serves as a basic fra
             else:
                 enemy_attack = enemy_strength*random.uniform(0.8,1.2)
                 player_health = player_health - enemy_attack                                            #If it's enemies turn enemy hits player. Damage = to enemystrength value +-20%
-                player_turn = true                                                                      #force next turn to be player attack
+                player_turn = True                                                                      #force next turn to be player attack
                 turn = turn+1                                                                           #increment turn counter
                   
-                print(enemy_name + " attacks you for " + enemy_attack + " points of damage."            #inform player of damage dealt
+                print(enemy_name + " attacks you for " + enemy_attack + " points of damage.")            #inform player of damage dealt
                 time.sleep(2)
                 print("You have " + player_health + " hitpoints remaining.")
 
-    if player_health > 0 and retreat = false:                   #This code handles what happens to the player after the encounter based on if they won, lost or ran.
+    if player_health > 0 and retreat = False:                   #This code handles what happens to the player after the encounter based on if they won, lost or ran.
         victory(enemy["name"])
     elif player_health <= 0:
         defeat()
