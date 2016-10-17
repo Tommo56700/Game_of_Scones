@@ -2,7 +2,7 @@
 
 import random
 
-from map import rooms, puzzle_rooms
+from map import rooms, puzzle_rooms, boss_rooms
 from maze import maze_rooms
 
 from player import *
@@ -29,24 +29,21 @@ def opening():
     input("Quest 1: BLOOD, SWEAT AND TEARS\nFind all 4 ingredients to make the ultimate scone!\n")
 
 
-def init_rooms(rooms, puzzle_rooms):
+def init_rooms(rooms, puzzle_rooms, boss_rooms):
     """This function randomly selects the puzzle rooms to be used in each location
     and updates the dict of rooms
     """
 
-    rand_rooms = random.sample(puzzle_rooms, 3)
+    rand_rooms = random.sample(puzzle_rooms, 2)
 
-    exits = [{"east": "room_boss_2", "west": "room_centre"}, {"south": "room_boss_3", "north": "room_centre"}, {"west": "room_boss_4", "east": "room_centre"}]
+    exits = [{"east": "room_boss_paul", "west": "room_centre"}, {"west": "room_boss_ms", "east": "room_centre"}]
 
-    directions = ["east", "south", "west"]
-    inverse_directions = ["west", "north", "east"]
+    directions = ["east", "west"]
 
     for i in range(len(rand_rooms)):
         rand_rooms[i]["exits"] = exits[i]
-        rand_rooms[i]["id"] = "room_puzzle_" + str(i + 1)
         rooms["room_centre"]["exits"][directions[i]] = rand_rooms[i]["id"]
-        rooms[("room_boss_" + str(i + 2))]["exits"][inverse_directions[i]] = rand_rooms[i]["id"]
-        rooms[("room_puzzle_" + str(i + 1))] = rand_rooms[i]
+        boss_rooms[i]["exits"][list(reversed(directions))[i]] = rand_rooms[i]["id"]
 
     return rooms
 
@@ -412,7 +409,7 @@ def trivia_event():
 def main():
     global rooms
 
-    rooms = init_rooms(rooms, puzzle_rooms)
+    rooms = init_rooms(rooms, puzzle_rooms, boss_rooms)
     opening()
 
     # Main game loop
