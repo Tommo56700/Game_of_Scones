@@ -15,7 +15,7 @@ item_ginger_key = {
 }
 
 item_rolling_pin = {
-    "id": "rolling_pin",
+    "id": "rolling pin",
 
     "name": "Rolling Pin",
 
@@ -23,7 +23,7 @@ item_rolling_pin = {
 }
 
 item_meat_tenderiser = {
-    "id": "meat_tenderiser",
+    "id": "meat tenderiser",
 
     "name": "Meat Tenderiser",
 
