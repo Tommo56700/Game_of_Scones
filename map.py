@@ -33,13 +33,21 @@ room_puzzle_keypad = {
 
     "name": "The Cellar",
 
+<<<<<<< HEAD
     "story": "You descend into the under belly of Mary's fortress of pain. The cellar is dark\nand damp, the only light coming from a few flickering candles hung on the walls.\nEmpty crates and wooden pallets scatter the room. You notice on the floor an\nelaborate rug, an heirloom of the Berry family no doubt. One of the corners is\nupturned slightly. On the far wall is a door labelled store room.",
+=======
+    "story": "You descend into the under belly of Mary’s fortress of pain. The cellar is dark\nand damp, the only light coming from a few flickering candles hung on the walls.\nEmpty crates and wooden pallets scatter the room. You notice on the floor an\nelaborate rug, an heirloom of the Berry family no doubt. One of the corners is\nupturned slightly. On the far wall is a door labelled Mel & Sue's Office.",
+>>>>>>> 0b65926d75412f49df4dff4a9915ef4d707d272a
 
     "exits": {"east": "room_centre", "west": "room_boss_ms"},
 
+<<<<<<< HEAD
     "items": [], #combat item
 
     "event": "keypad"
+=======
+    "items": [item_meat_tenderiser] #combat item
+>>>>>>> 0b65926d75412f49df4dff4a9915ef4d707d272a
 }
 
 room_puzzle_wordsearch = {
@@ -53,7 +61,11 @@ room_puzzle_wordsearch = {
 
     "items": [], #combat item
 
+<<<<<<< HEAD
     "event": "wordsearch"
+=======
+    "items": [item_rolling_pin] #combat item
+>>>>>>> 0b65926d75412f49df4dff4a9915ef4d707d272a
 }
 
 
@@ -68,7 +80,11 @@ room_boss_mary = {
 
     "event": "mary",
 
+<<<<<<< HEAD
     "items": [item_secret_formula]
+=======
+    "items": [item_secret_formula] #Super Secret Formula ITEM/WINNING
+>>>>>>> 0b65926d75412f49df4dff4a9915ef4d707d272a
 }
 
 room_boss_paul = {
@@ -82,7 +98,11 @@ room_boss_paul = {
 
     "event": "paul",
 
+<<<<<<< HEAD
     "items": [item_ginger_key]
+=======
+    "items": [item_ginger_key] #Ginger KEY ITEM
+>>>>>>> 0b65926d75412f49df4dff4a9915ef4d707d272a
 }
 
 room_boss_ms = {
@@ -96,7 +116,11 @@ room_boss_ms = {
 
     "event": "ms",
 
+<<<<<<< HEAD
     "items": [item_short_key]
+=======
+    "items": [item_short_key] #Shortbread KEY ITEM
+>>>>>>> 0b65926d75412f49df4dff4a9915ef4d707d272a
 }
 
 
