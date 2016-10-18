@@ -64,7 +64,7 @@ room_boss_mary = {
 
     "event": "boss",
 
-    "items": [] #Super Secret Formula ITEM/WINNING
+    "items": [item_secret_formula] #Super Secret Formula ITEM/WINNING
 }
 
 room_boss_paul = {
