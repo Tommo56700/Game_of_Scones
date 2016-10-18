@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import random
+import time
 
 from map import rooms, puzzle_rooms, boss_rooms
 from maze import maze_rooms
@@ -16,19 +17,32 @@ def opening():
     """This function prints all of the opening text for the game.
     """
     #input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
-    input("\nWelcome!\n")
+    print("\nWelcome!\n")
+    time.sleep(1)
     print("In a world where baking is the only form of solice, one chef strives to be the best, like no one ever was!")
-    input("Only one obsticle stands in your way,")
+    time.sleep(2)
+    print("Only one obsticle stands in your way,")
+    time.sleep(2)
     print("Mary Berry and her tyranical rule over the seven kingdoms!")
-    input("For too long has this evil overlord of the croissant reigned down on all other noble patissiers.")
+    time.sleep(2)
+    print("For too long has this evil overlord of the croissant reigned down on all other noble patissiers.")
+    time.sleep(2)
     print("Cursed by an evil spell placed on them, all baking endeavours attempted by anyone other than Mary Berry will ")
-    input("burn, fall flat or just fail miserably.")
+    time.sleep(2)
+    print("burn, fall flat or just fail miserably.")
+    time.sleep(2)
     print("It is time for you to rise up and dethrone her by stealing the source of her power,")
-    input("the recipie for the SCONE of ENCHANTMENT!")
+    time.sleep(2)
+    print("the recipie for the SCONE of ENCHANTMENT!")
+    time.sleep(2)
     print("In your travels you will have to solve complexing puzzles,")
-    input("battle the most ferocious beasts and learn to become a master baker.\n")
+    time.sleep(2)
+    print("battle the most ferocious beasts and learn to become a master baker.\n")
+    time.sleep(2)
     print("Will you make it through these rigorous challenges?")
-    input("Find out now in...\n")
+    time.sleep(2)
+    print("Find out now in...\n")
+    time.sleep(2)
     print(''' 
 
  _____                               __   _____                           
@@ -38,8 +52,10 @@ def opening():
 
     \n\n ''')
 
+    time.sleep(4)
+
     #input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
-    input("Quest 1: BLOOD, SWEAT AND TEARS\nFind all 4 ingredients to make the ultimate scone!\n")
+    print("Quest 1: BLOOD, SWEAT AND TEARS\nFind all 4 ingredients to make the ultimate scone!\n")
 
 
 """def init_rooms(rooms, puzzle_rooms, boss_rooms):
@@ -106,6 +122,7 @@ def print_room(room):
 
     # Display room name
     print("\n")
+    time.sleep(1)
     #print(Fore.RED + Style.BRIGHT + "---------------------------- " + room["name"].upper() + " ----------------------------" + Style.RESET_ALL)
     print("---------------------------- " + room["name"].upper() + " ----------------------------")
     print("")
@@ -191,7 +208,7 @@ def execute_go(direction, game_stage):
     if game_stage == 0 and current_room == rooms["room_centre"] and direction == "north":
         print("The door is locked, search the other rooms to find the keys.\n")
         return False
-    elif (game_stage == 1 or game_stage == 2) and current_room == rooms["room_centre"] and direction == "north":
+    elif game_stage == 1 and current_room == rooms["room_centre"] and direction == "north":
         print("The door is locked, you have 1 key, search the last room to find the final key.\n")
         return False
     else:
@@ -331,10 +348,10 @@ def execute_event(event):
     elif event == "mary":
         boss_mary_event()
     elif event == "keypad":
-        rooms["room_centre"]["story"] = ""
+        rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the far end of the room remains locked."
         keypad_event()
     elif event == "wordsearch":
-        rooms["room_centre"]["story"] = ""
+        rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the far end of the room remains locked."
         wordsearch_event()
 
 
@@ -345,10 +362,12 @@ def maze_event(maze_rooms):
     smell = 0
 
     while True:
-        if maze_room["weight"] > smell:
-            print("The smell of baked bread gets stronger.")
+        if maze_room["weight"] > smell and maze_room["weight"] != 13:
+            print("The smell of baked bread gets STRONGER.")
+            time.sleep(1)
         elif maze_room["weight"] < smell:
-            print("The smell of baked bread gets weaker.")
+            print("The smell of baked bread gets WEAKER.")
+            time.sleep(1)
         else:
             print("You can smell freshly baked bread in the distance.")
 
@@ -397,7 +416,7 @@ def boss_paul_event():
     game_stage += 1
     execute_take("key_1")
     del current_room["event"]
-    current_room["story"] = ""
+    current_room["story"] = "You are in the walk in freezer.\nFrozen confectionary lays scattered throughout the room in the aftermath\nof your battle with Paul."
 
     # Show the menu with possible actions
     print_menu(current_room["exits"], current_room["items"], inventory)
@@ -423,7 +442,7 @@ def boss_ms_event():
     game_stage += 1
     execute_take("key_2")
     del current_room["event"]
-    current_room["story"] = ""
+    current_room["story"] = "You are back in the Office. The room now appears to lay silent and empty."
 
     # Show the menu with possible actions
     print_menu(current_room["exits"], current_room["items"], inventory)
@@ -444,10 +463,10 @@ def boss_mary_event():
     input("Press enter to fight Mary!")
 
     #When boss is defeated:
-    print("You have defeated Mel and Sue, you can now take their key!\n")
+    print("You have defeated Mary, you can now take her Super Secret Formula!\n")
 
     game_stage = 4
-    execute_take("notes")
+    execute_take("secret_formula")
     del current_room["event"]
     current_room["story"] = ""
 
@@ -461,22 +480,38 @@ def keypad_event():
     print ("You've already guessed the first three numbers from the keypad as flour was still on the keys.\n")
     print ("Now you must now guess the last digit:")
 
-    temp = int(input("> "))
+    while True:
+        try:
+            temp = int(input("> "))
+            break
+        except ValueError:
+            print("\nYou can only input a number:")
+
     while temp != number:
         if temp > number: 
-            print ("\nThe number may be smaller")
+            print ("\nThe number may be SMALLER")
             health = health - 10
             print ("You have been shocked by the keypad. You lost 10 health, and you have ",  health, "remaining")
-            temp = int(input("Guess again:\n> "))
+            while True:
+                try:
+                    temp = int(input("Guess again:\n> "))
+                    break
+                except ValueError:
+                    print("Only input a number")
         else: 
-            print("\nThe last number may be higher")
+            print("\nThe last number may be LARGER")
             health = health - 10
             print ("You have been shocked by the keypad. You lost 10 health, and you have ",  health, "remaining")
-            temp = int(input("Guess again:\n> "))
-    print("\nYou have correctly guessed the numberpad code!") #Discription for completing the puzzle
+            while True:
+                try:
+                    temp = int(input("Guess again:\n> "))
+                    break
+                except ValueError:
+                    print("Only input a number")
+    print("\nYou have correctly guessed the numberpad code. The door ahead opens rapidly!") #Discription for completing the puzzle
 
     del current_room["event"]
-    current_room["story"] = ""
+    current_room["story"] = "Once again you find yourself lurking in the cellar. You ask yourself why you chose to go back here?"
     current_room = move(rooms, current_room["exits"], "west")
 
     #return health
@@ -487,7 +522,7 @@ def wordsearch_event():
 
     print("You are stuck at a door. This door requires a keyword to open the door")
     print("You notice on the wall next to the door is a cluster of random letters written in flour,")
-    print("from this you must figure out the key word to open the door")# Discription of the puzzle 
+    print("from this you must figure out the key word to open the door\n")# Discription of the puzzle 
     print("The wall reads:")
     print(" S A B M A Y R")
     print(" Z C A R T Y A") ### Here is the wordsearch 
@@ -506,7 +541,7 @@ def wordsearch_event():
     print ("This is the correct keyword. The door ahead opens rapidly!") # Discription upon completion
 
     del current_room["event"]
-    current_room["story"] = ""
+    current_room["story"] = "You are in the Pantry. This room is familiar to you.\nYou recognise the complete wordsearch in the middle of the room."
     current_room = move(rooms, current_room["exits"], "east")
 
 
