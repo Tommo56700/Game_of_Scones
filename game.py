@@ -33,7 +33,7 @@ def opening():
     time.sleep(2)
     print("It is time for you to rise up and dethrone her by stealing the source of her power,")
     time.sleep(2)
-    print("the recipie for the SCONE of ENCHANTMENT!")
+    print("the recipie for the SCONE OF ENCHANTMENT!")
     time.sleep(2)
     print("In your travels you will have to solve complexing puzzles,")
     time.sleep(2)
@@ -55,7 +55,7 @@ def opening():
     time.sleep(4)
 
     #input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
-    print("Quest 1: BLOOD, SWEAT AND TEARS\nFind all 4 ingredients to make the ultimate scone!\n")
+    print("Quest: BLOOD, SWEAT AND TEARS\nFind your way to Mary Berry to make the ultimate scone!\n")
 
 
 """def init_rooms(rooms, puzzle_rooms, boss_rooms):
@@ -348,10 +348,16 @@ def execute_event(event):
     elif event == "mary":
         boss_mary_event()
     elif event == "keypad":
-        rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the far end of the room remains locked."
+        if game_stage == 0:
+            rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the\nfar end of the room remains locked. You return to the vast, expansive room\nin the centre of the Red Velvet Keep. The room is airily chilling.\nThe air is filled with flour dust, illuminated by strands of light beaming in\nfrom the windows. The walls are adorned with paintings of baked goods and in\nthe centre is a stone statue of a croquembouche. On the far wall is a large,\narched doorway with two key holes. You have one of the keys."
+        else:
+            rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the\nfar end of the room remains locked. You return to the vast, expansive room\nin the centre of the Red Velvet Keep. The room is airily chilling.\nThe air is filled with flour dust, illuminated by strands of light beaming in\nfrom the windows. The walls are adorned with paintings of baked goods and in\nthe centre is a stone statue of a croquembouche. On the far wall is a large,\narched doorway with two key holes. You have both of the keys."
         keypad_event()
     elif event == "wordsearch":
-        rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the far end of the room remains locked."
+        if game_stage == 0:
+            rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the\nfar end of the room remains locked. You return to the vast, expansive room\nin the centre of the Red Velvet Keep. The room is airily chilling.\nThe air is filled with flour dust, illuminated by strands of light beaming in\nfrom the windows. The walls are adorned with paintings of baked goods and in\nthe centre is a stone statue of a croquembouche. On the far wall is a large,\narched doorway with two key holes. You have one of the keys."
+        else:
+            rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the\nfar end of the room remains locked. You return to the vast, expansive room\nin the centre of the Red Velvet Keep. The room is airily chilling.\nThe air is filled with flour dust, illuminated by strands of light beaming in\nfrom the windows. The walls are adorned with paintings of baked goods and in\nthe centre is a stone statue of a croquembouche. On the far wall is a large,\narched doorway with two key holes. You have both of the keys."
         wordsearch_event()
 
 
@@ -362,14 +368,15 @@ def maze_event(maze_rooms):
     smell = 0
 
     while True:
-        if maze_room["weight"] > smell and maze_room["weight"] != 13:
-            print("The smell of baked bread gets STRONGER.")
-            time.sleep(1)
-        elif maze_room["weight"] < smell:
-            print("The smell of baked bread gets WEAKER.")
-            time.sleep(1)
-        else:
-            print("You can smell freshly baked bread in the distance.")
+        if maze_room["weight"] != 13:
+            if maze_room["weight"] > smell:
+                print("The smell of baked bread gets STRONGER.")
+                time.sleep(1)
+            elif maze_room["weight"] < smell:
+                print("The smell of baked bread gets WEAKER.")
+                time.sleep(1)
+            else:
+                print("You can smell freshly baked bread in the distance.")
 
         smell = maze_room["weight"]
 
@@ -399,7 +406,7 @@ def maze_event(maze_rooms):
                         print("Moving " + command[1] + "...\n")
                         valid_input = True
                     else:
-                        print("You cannot go there.")
+                        print("You cannot go there.\n")
                 else:
                     print("Go where?\n")
 
@@ -416,7 +423,7 @@ def boss_paul_event():
     game_stage += 1
     execute_take("key_1")
     del current_room["event"]
-    current_room["story"] = "You are in the walk in freezer.\nFrozen confectionary lays scattered throughout the room in the aftermath\nof your battle with Paul."
+    current_room["story"] = "You are back in the walk-in freezer. Frozen confectionary lays scattered throughout\nthe room in the aftermath of your battle with Paul.\nThere is nothing of interest here."
 
     # Show the menu with possible actions
     print_menu(current_room["exits"], current_room["items"], inventory)
@@ -442,7 +449,7 @@ def boss_ms_event():
     game_stage += 1
     execute_take("key_2")
     del current_room["event"]
-    current_room["story"] = "You are back in the Office. The room now appears to lay silent and empty."
+    current_room["story"] = "You enter a narrow hallway. As you walk down the path you notice that it\nbecomes continually larger with each step you take. You are back in the Office,\nyou are relieved that the room now lays silent and empty.\nThere is nothing of interest here."
 
     # Show the menu with possible actions
     print_menu(current_room["exits"], current_room["items"], inventory)
@@ -491,7 +498,7 @@ def keypad_event():
         if temp > number: 
             print ("\nThe number may be SMALLER")
             health = health - 10
-            print ("You have been shocked by the keypad. You lost 10 health, and you have ",  health, "remaining")
+            print ("You have been shocked by the keypad. You lost 10 health, and you have",  health, "remaining")
             while True:
                 try:
                     temp = int(input("Guess again:\n> "))
@@ -501,7 +508,7 @@ def keypad_event():
         else: 
             print("\nThe last number may be LARGER")
             health = health - 10
-            print ("You have been shocked by the keypad. You lost 10 health, and you have ",  health, "remaining")
+            print ("You have been shocked by the keypad. You lost 10 health, and you have",  health, "remaining")
             while True:
                 try:
                     temp = int(input("Guess again:\n> "))
@@ -511,7 +518,7 @@ def keypad_event():
     print("\nYou have correctly guessed the numberpad code. The door ahead opens rapidly!") #Discription for completing the puzzle
 
     del current_room["event"]
-    current_room["story"] = "Once again you find yourself lurking in the cellar. You ask yourself why you chose to go back here?"
+    current_room["story"] = "You descend into the under belly of Mary's fortress of pain. Once again you find\nyourself lurking in the cellar. It's dark and damp, the only light is coming from a few\nflickering candles hung on the walls. Empty crates and wooden pallets scatter the room.\nYou ask yourself why you chose to come back here?"
     current_room = move(rooms, current_room["exits"], "west")
 
     #return health
@@ -538,10 +545,10 @@ def wordsearch_event():
         else:
             print ("\nTry again, this is the incorrect password:")
             entry = str(input("> "))
-    print ("This is the correct keyword. The door ahead opens rapidly!") # Discription upon completion
+    print ("You have found the correct word. The door ahead opens rapidly!") # Discription upon completion
 
     del current_room["event"]
-    current_room["story"] = "You are in the Pantry. This room is familiar to you.\nYou recognise the complete wordsearch in the middle of the room."
+    current_room["story"] = "You are back in the pantry. Surrounding you from all directions are shelves towering\nall the way to the ceiling, stacked full of pastries, cakes, loafs of bread and\na plethora of cooking ingredients. You are reminded of the wordsearch that you\ncompleted and your stomach rumbles. 'Mmm scones...'"
     current_room = move(rooms, current_room["exits"], "east")
 
 
@@ -578,7 +585,7 @@ def main():
         if game_stage == 4:
             running = False
 
-    print("\nYou take Mary's secret notes and bake the world's best scone!\n****************** You win! ******************")
+    print("\nUsing Mary's secret formula, you bake the world's best scone!\n****************** You win! ******************")
 
             
 

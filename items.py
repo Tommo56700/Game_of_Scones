@@ -1,7 +1,7 @@
 item_short_key = {
     "id": "key_2",
 
-    "name": "Short Bread Key",
+    "name": "Shortbread Key",
 
     "description": "This key brings you one step closer to star baker, is also delicious with hot drinks."
 }
@@ -9,13 +9,13 @@ item_short_key = {
 item_ginger_key = {
     "id": "key_1",
 
-    "name": "Ginger Bread Key",
+    "name": "Gingerbread Key",
 
     "description": "This key brings you one step closer to star baker, is also delicious with icing."
 }
 
 item_rolling_pin = {
-    "id": "rolling pin",
+    "id": "rolling-pin",
 
     "name": "Rolling Pin",
 
@@ -23,7 +23,7 @@ item_rolling_pin = {
 }
 
 item_meat_tenderiser = {
-    "id": "meat tenderiser",
+    "id": "meat-tenderiser",
 
     "name": "Meat Tenderiser",
 
