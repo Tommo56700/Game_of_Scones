@@ -37,7 +37,7 @@ room_puzzle_keypad = {
 
     "exits": {"east": "room_centre", "west": "room_boss_ms"},
 
-    "event": "keypad"
+    "event": "keypad",
 
     "items": [item_meat_tenderiser]
 }
@@ -51,7 +51,7 @@ room_puzzle_wordsearch = {
 
     "exits": {"west": "room_centre", "east": "room_boss_paul"},
 
-    "event": "wordsearch"
+    "event": "wordsearch",
 
     "items": [item_rolling_pin]
 }

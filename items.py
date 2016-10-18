@@ -1,5 +1,5 @@
 item_short_key = {
-    "id": "short_bread_key",
+    "id": "key_2",
 
     "name": "Short Bread Key",
 
@@ -7,7 +7,7 @@ item_short_key = {
 }
 
 item_ginger_key = {
-    "id": "ginger_bread_key",
+    "id": "key_1",
 
     "name": "Ginger Bread Key",
 
@@ -15,25 +15,25 @@ item_ginger_key = {
 }
 
 item_rolling_pin = {
-    "id": "rolling_pin"
+    "id": "rolling_pin",
 
-    "name": "Rolling Pin"
+    "name": "Rolling Pin",
 
     "description": "This rolling pin looks quite heavy and would certainly do a lot of damage if bludgeoned relentlessly against someone’s skull"
 }
 
 item_meat_tenderiser = {
-    "id": "meat_tenderiser"
+    "id": "meat_tenderiser",
 
-    "name": "Meat Tenderiser"
+    "name": "Meat Tenderiser",
 
     "description": "There is no meat in sight so you can only presume this hetfy hammer can be used as some sort of deadly weapon."
 }
 
 item_secret_formula = {
-    "id": "secret_formula"
+    "id": "secret_formula",
 
-    "name": "Super Secret Formula"
+    "name": "Super Secret Formula",
 
     "description": "The formala shows you the ingredients and recipe you need to become the star baker for years to come."
 }
