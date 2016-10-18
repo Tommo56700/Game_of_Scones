@@ -106,8 +106,8 @@ def print_room(room):
 
     # Display room name
     print("\n")
-    #print(Fore.RED + Style.BRIGHT + "-------------------------- " + room["name"].upper() + " --------------------------" + Style.RESET_ALL)
-    print("-------------------------- " + room["name"].upper() + " --------------------------")
+    #print(Fore.RED + Style.BRIGHT + "---------------------------- " + room["name"].upper() + " ----------------------------" + Style.RESET_ALL)
+    print("---------------------------- " + room["name"].upper() + " ----------------------------")
     print("")
     # Display room description
     #print(Fore.YELLOW + room["description"] + Style.RESET_ALL)
