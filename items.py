@@ -15,7 +15,7 @@ item_ginger_key = {
 }
 
 item_rolling_pin = {
-    "id": "rolling pin",
+    "id": "rolling_pin",
 
     "name": "Rolling Pin",
 
@@ -23,7 +23,7 @@ item_rolling_pin = {
 }
 
 item_meat_tenderiser = {
-    "id": "meat tenderiser",
+    "id": "meat_tenderiser",
 
     "name": "Meat Tenderiser",
 
@@ -31,7 +31,7 @@ item_meat_tenderiser = {
 }
 
 item_secret_formula = {
-    "id": "secret formula",
+    "id": "secret_formula",
 
     "name": "Super Secret Formula",
 
