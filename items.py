@@ -36,3 +36,10 @@ item_meat_tenderiser={
 
     "description": "There is no meat in sight so you can only presume this hetfy hammer can be used as some sort of deadly weapon."
 }
+item_secret_formula={
+    "id": "secret_formula"
+
+    "name": "Super Secret Formula"
+
+    "description": "The formala shows you the ingredients and recipe you need to become the star baker for years to come."
+}
