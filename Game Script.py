@@ -59,9 +59,8 @@ upturned slightly. On the far wall is a door labelled store room.  In the centre
 of the room is (insert puzzle).  
 
 (Move rug – There is a trap door underneath – open trap door – you have
-discovered a cubby hole. In it you find (insert weapon) (a bag of salt,
-sure to inflict a lot of pain were it accidentally thrown into the eyes of an
-unsuspecting by stander). 
+discovered a cubby hole. In it you find a meat tenderiser, there is no meat in sight
+so you can only presume this hetfy hammer can be used as some sort of deadly weapon.) 
 
 Store room 
 
