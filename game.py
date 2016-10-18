@@ -10,7 +10,7 @@ from items import *
 from gameparser import *
 #from colorama import Fore, Back, Style
 
-
+game_stage = 0
 
 def opening():
     """This function prints all of the opening text for the game.
@@ -29,10 +29,10 @@ def opening():
     input("Quest 1: BLOOD, SWEAT AND TEARS\nFind all 4 ingredients to make the ultimate scone!\n")
 
 
-def init_rooms(rooms, puzzle_rooms, boss_rooms):
-    """This function randomly selects the puzzle rooms to be used in each location
+"""def init_rooms(rooms, puzzle_rooms, boss_rooms):
+    This function randomly selects the puzzle rooms to be used in each location
     and updates the dict of rooms
-    """
+    
 
     rand_rooms = random.sample(puzzle_rooms, 2)
 
@@ -45,7 +45,7 @@ def init_rooms(rooms, puzzle_rooms, boss_rooms):
         rooms["room_centre"]["exits"][directions[i]] = rand_rooms[i]["id"]
         boss_rooms[i]["exits"][list(reversed(directions))[i]] = rand_rooms[i]["id"]
 
-    return rooms
+    return rooms"""
 
 
 def list_of_items(items):
@@ -92,7 +92,7 @@ def print_room(room):
     """
 
     # Display room name
-    print("")
+    print("\n")
     #print(Fore.RED + Style.BRIGHT + "-------------------------- " + room["name"].upper() + " --------------------------" + Style.RESET_ALL)
     print("-------------------------- " + room["name"].upper() + " --------------------------")
     print("")
@@ -166,7 +166,7 @@ def is_valid_exit(exits, chosen_exit):
     return chosen_exit in exits
 
 
-def execute_go(direction):
+def execute_go(direction, game_stage):
     """This function, given the direction (e.g. "south") updates the current room
     to reflect the movement of the player if the direction is a valid exit
     (and prints the name of the room into which the player is
@@ -175,13 +175,20 @@ def execute_go(direction):
 
     global current_room
 
-    if is_valid_exit(current_room["exits"], direction):
-        current_room = move(rooms, current_room["exits"], direction)
-        print("Moving to " + current_room["name"] + "...")
-        return True
-    else:
-        print("You cannot go there.")
+    if game_stage == 0 and current_room == rooms["room_centre"] and direction == "north":
+        print("The door is locked, search the other rooms to find the keys.\n")
         return False
+    elif game_stage == 1 and current_room == rooms["room_centre"] and direction == "north":
+        print("The door is locked, you have 1 key, search the last room to find the final key.\n")
+        return False
+    else:
+        if is_valid_exit(current_room["exits"], direction):
+            current_room = move(rooms, current_room["exits"], direction)
+            print("Moving to " + current_room["name"] + "...")
+            return True
+        else:
+            print("You cannot go there.")
+            return False
 
 
 def execute_take(item_id):
@@ -196,8 +203,8 @@ def execute_take(item_id):
             
             if item_id == current_room["items"][i]["id"]:
                 inventory.append(current_room["items"][i])
+                print("You take the " + current_room["items"][i]["name"] + "\n")
                 (current_room["items"]).remove(current_room["items"][i])
-                print(item_id + " taken.")
                 break
 
         return True
@@ -237,7 +244,7 @@ def execute_help():
     print(current_room["story"])
 
 
-def execute_command(command):
+def execute_command(command, game_stage):
     """This function takes a command (a list of words as returned by
     normalise_input) and, depending on the type of action (the first word of
     the command: "go", "take", or "drop"), executes either execute_go,
@@ -249,7 +256,7 @@ def execute_command(command):
 
     if command[0] == "go":
         if len(command) > 1:
-            return execute_go(command[1])
+            return execute_go(command[1], game_stage)
         else:
             print("Go where?\n")
 
@@ -296,21 +303,27 @@ def move(rooms, exits, direction):
     return rooms[exits[direction]]
 
 
-def execute_event(event, last_commad):
+def execute_event(event):
     global current_room
 
     if event == "maze":
-        maze_event(maze_rooms, last_commad)
+        maze_event(maze_rooms)
     elif event == "maze complete":
         print("You work your way back through the maze to the centre room.")
         current_room = rooms["room_centre"]
-    elif event == "boss":
-        boss1_event()
-    elif event == "trivia":
-        trivia_event()
+    elif event == "ms":
+        boss_ms_event()
+    elif event == "paul":
+        boss_paul_event()
+    elif event == "mary":
+        boss_mary_event()
+    elif event == "keypad":
+        keypad_event()
+    elif event == "wordsearch":
+        wordsearch_event()
 
 
-def maze_event(maze_rooms, last_commad):
+def maze_event(maze_rooms):
     global current_room
 
     print("")
@@ -332,7 +345,7 @@ def maze_event(maze_rooms, last_commad):
 
         if maze_room["id"] == "maze_44":
             current_room["event"] = "maze complete"
-            current_room = move(rooms, current_room["exits"], last_commad[1])
+            current_room = move(rooms, current_room["exits"], "north")
             break
 
         print("\nYou can:")
@@ -362,7 +375,9 @@ def maze_event(maze_rooms, last_commad):
                     print("Go where?\n")
 
 
-def boss1_event():
+def boss_paul_event():
+    global game_stage
+
     print_room(current_room)
     print_inventory_items(inventory)
     
@@ -370,7 +385,9 @@ def boss1_event():
     input("Press enter to fight the boss!")
 
     #When boss is defeated:
-    print("You have defeated the boss, you can now take their loot!\n")
+    print("You have defeated Paul, you can now take their key!\n")
+    game_stage += 1
+    execute_take("key_1")
     del current_room["event"]
 
     # Show the menu with possible actions
@@ -382,18 +399,25 @@ def boss1_event():
         command = player_input()
 
         # Execute the player's command
-        valid_input = execute_command(command)
+        valid_input = execute_command(command, game_stage)
 
 
-def trivia_event():
+def boss_ms_event():
+    global game_stage
+
     print_room(current_room)
     print_inventory_items(inventory)
+    
+    #Add combat stuff here
+    input("Press enter to fight the boss!")
 
-    input("Trivia question")
-
-    print("Correct! You may continue on your quest.")
+    #When boss is defeated:
+    print("You have defeated Mel and Sue, you can now take their key!\n")
+    game_stage += 1
+    execute_take("key_2")
     del current_room["event"]
 
+    # Show the menu with possible actions
     print_menu(current_room["exits"], current_room["items"], inventory)
 
     valid_input = False
@@ -402,14 +426,92 @@ def trivia_event():
         command = player_input()
 
         # Execute the player's command
-        valid_input = execute_command(command)
+        valid_input = execute_command(command, game_stage)
+
+
+def boss_mary_event():
+    global game_stage
+
+    print_room(current_room)
+    print_inventory_items(inventory)
+    
+    #Add combat stuff here
+    input("Press enter to fight Mary!")
+
+    #When boss is defeated:
+    print("You have defeated Mel and Sue, you can now take their key!\n")
+    game_stage += 1
+    execute_take("notes")
+    del current_room["event"]
+
+
+def keypad_event():
+    global current_room
+
+    print_room(current_room)
+    print_inventory_items(inventory)
+
+    number = random.randrange (0,9) #random correct number in the range of 0-9 
+    health = 100 #edit this to match game health variable name
+    print ("You've encountered a keypad,")# edit this to cahnge introudction of puzzle 
+    print ("You've already guessed the first three numbers from the keypad as flour was still on the keys.\n")
+    print ("Now you must now guess the last digit:")
+
+    temp = int(input("> "))
+    while temp != number:
+        if temp > number: 
+            print ("\nThe number may be smaller")
+            health = health - 10
+            print ("You have been shocked by the keypad. You lost 10 health, and you have ",  health, "remaining")
+            temp = int(input("Guess again:\n> "))
+        else: 
+            print("\nThe last number may be higher")
+            health = health - 10
+            print ("You have been shocked by the keypad. You lost 10 health, and you have ",  health, "remaining")
+            temp = int(input("Guess again:\n> "))
+    print("\nYou have correctly guessed the numberpad code!") #Discription for completing the puzzle
+
+    del current_room["event"]
+    current_room = move(rooms, current_room["exits"], "west") 
+    #return health
+
+
+def wordsearch_event():
+    global current_room
+
+    print_room(current_room)
+    print_inventory_items(inventory)
+
+    print("You are stuck at a door. This door requires a keyword to open the door")
+    print("You notice on the wall next to the door is a cluster of random letters written in flour,")
+    print("from this you must figure out the key word to open the door")# Discription of the puzzle 
+    print("The wall reads:")
+    print(" S A B M A Y R")
+    print(" Z C A R T Y A") ### Here is the wordsearch 
+    print(" R R O C K O N")
+    print(" Y Y X N K L N")
+    print(" L A M C E P O\n")
+
+    entry = str(input("> ")) 
+    while entry.upper() != "SCONE": # loops until SCONE is entered. 
+        if entry == "hint": #Game also offers a hint
+            print ("\nYou think to yourself... the keyword must be delicious!")
+            entry = str(input("> "))
+        else:
+            print ("\nTry again, this is the incorrect password:")
+            entry = str(input("> "))
+    print ("This is the correct keyword. The door ahead opens rapidly!") # Discription upon completion
+
+    del current_room["event"]
+    current_room = move(rooms, current_room["exits"], "east")
+
+
 
 
 # This is the entry point of our program
 def main():
-    global rooms
 
-    rooms = init_rooms(rooms, puzzle_rooms, boss_rooms)
+    #rooms = init_rooms(rooms, puzzle_rooms, boss_rooms
     opening()
 
     # Main game loop
@@ -417,7 +519,7 @@ def main():
     while running:
 
         if "event" in current_room.keys():
-            execute_event(current_room["event"], last_commad)
+            execute_event(current_room["event"])
         else:
             valid_input = False
 
@@ -431,14 +533,13 @@ def main():
             while not valid_input:
                 # Ask the player for a response
                 command = player_input()
-                last_commad = command
                 # Execute the player's command
-                valid_input = execute_command(command)
+                valid_input = execute_command(command, game_stage)
 
-        if len(inventory) == 4 and current_room == rooms["room_centre"]:
+        if game_stage == 3:
             running = False
 
-    print("\nYou return to the oven and bake the world's best scone!\n****************** You win! ******************")
+    print("\nYou take Mary's secret notes and bake the world's best scone!\n****************** You win! ******************")
 
             
 
