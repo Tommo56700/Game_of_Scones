@@ -17,13 +17,26 @@ def opening():
     """
     #input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
     input("\nWelcome!\n")
-    print("In a world where baking is the only form of solice, one chef strives to please the formidable Mary Berry,")
-    input("you have set yourself on a quest to source the rarest ingrediants in all four kingdoms.")
+    print("In a world where baking is the only form of solice, one chef strives to be the best, like no one ever was!")
+    input("Only one obsticle stands in your way,")
+    print("Mary Berry and her tyranical rule over the seven kingdoms!")
+    input("For too long has this evil overlord of the croissant reigned down on all other noble patissiers.")
+    print("Cursed by an evil spell placed on them, all baking endeavours attempted by anyone other than Mary Berry will ")
+    input("burn, fall flat or just fail miserably.")
+    print("It is time for you to rise up and dethrone her by stealing the source of her power,")
+    input("the recipie for the SCONE of ENCHANTMENT!")
     print("In your travels you will have to solve complexing puzzles,")
-    input("battle the most ferocious beasts and bake the tastiest scone the world has ever known.\n")
+    input("battle the most ferocious beasts and learn to become a master baker.\n")
     print("Will you make it through these rigorous challenges?")
-    print("Find out now in...\n")
-    input("Game of Scones!\n\n")
+    input("Find out now in...\n")
+    print(''' 
+
+ _____                               __   _____                           
+|  __ \                             / _| /  ___|                          
+| |  \/ __ _ _ __ ___   ___    ___ | |_  \ `--.  ___ ___  _ __   ___  ___ 
+| | __ / _` | '_ ` _ \ / _ \  / _ \|  _|  `--. \/ __/ _ \| '_ \ / _ \/ __|\n| |_\ \ (_| | | | | | |  __/ | (_) | |   /\__/ / (_| (_) | | | |  __/\__ \ \n \____/\__,_|_| |_| |_|\___|  \___/|_|   \____/ \___\___/|_| |_|\___||___/	
+
+    \n\n ''')
 
     #input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
     input("Quest 1: BLOOD, SWEAT AND TEARS\nFind all 4 ingredients to make the ultimate scone!\n")
