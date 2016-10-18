@@ -33,11 +33,11 @@ room_puzzle_keypad = {
 
     "name": "The Cellar",
 
-    "story": "You descend into the under belly of Mary’s fortress of pain. The cellar is dark\nand damp, the only light coming from a few flickering candles hung on the walls.\nEmpty crates and wooden pallets scatter the room. You notice on the floor an\nelaborate rug, an heirloom of the Berry family no doubt. One of the corners is\nupturned slightly. On the far wall is a door labelled store room.",
+    "story": "You descend into the under belly of Mary’s fortress of pain. The cellar is dark\nand damp, the only light coming from a few flickering candles hung on the walls.\nEmpty crates and wooden pallets scatter the room. You notice on the floor an\nelaborate rug, an heirloom of the Berry family no doubt. One of the corners is\nupturned slightly. On the far wall is a door labelled Mel & Sue's Office.",
 
     "exits": {},
 
-    "items": [] #combat item
+    "items": [item_meat_tenderiser] #combat item
 }
 
 room_puzzle_crossword = {
@@ -49,7 +49,7 @@ room_puzzle_crossword = {
 
     "exits": {},
 
-    "items": [] #combat item
+    "items": [item_rolling_pin] #combat item
 }
 
 
@@ -78,7 +78,7 @@ room_boss_paul = {
 
     "event": "boss",
 
-    "items": [] #Ginger KEY ITEM
+    "items": [item_ginger_key] #Ginger KEY ITEM
 }
 
 room_boss_ms = {
@@ -92,7 +92,7 @@ room_boss_ms = {
 
     "event": "boss",
 
-    "items": [] #Shortbread KEY ITEM
+    "items": [item_short_key] #Shortbread KEY ITEM
 }
 
 
