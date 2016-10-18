@@ -22,13 +22,6 @@ item_rolling_pin={
 
     "description": "This rolling pin looks quite heavy and would certainly do a lot of damage if bludgeoned relentlessly against someone’s skull"
 }
-item_rolling_pin={
-    "id": "rolling_pin"
-
-    "name": "Rolling Pin"
-
-    "description": "This rolling pin looks quite heavy and would certainly do a lot of damage if bludgeoned relentlessly against someone’s skull"
-}
 item_meat_tenderiser={
     "id": "meat_tenderiser"
 
