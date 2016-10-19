@@ -25,7 +25,7 @@ boss_ms = {
 
 	"speed": 4,
 
-	"weakness": "meat ternderiser",
+	"weakness": "meat tenderiser",
 
 	"intro": "The deadly duo banter with you as you all prepare for battle. Thier jokes are more sad than funny..."
 }

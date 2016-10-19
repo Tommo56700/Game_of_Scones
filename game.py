@@ -841,8 +841,7 @@ def hangman_event():
                        |_______
                        """ 
                 print (longstring)
-                print ("GAME OVER!!!")
-                quit() 
+                game_over()
 
     print ("TYRION is the correct word!") ### edit to match game! finaly text upon completion of puzzle
     print ("\nThe mysterious old man vanishes and you think to yourself that this game was the biggest waste of time...\nBut then you hear a click, and the door files open infront of you!")
@@ -870,11 +869,6 @@ def combat(enemy):               #this code currently serves as a basic framewor
             if len(player_input) > 0:
                 if player_input == "attack":                                                                        #if player tries to attack
                     player_attack(player["strength"], player["dexterity"], enemy)
-                    turn += 1
-                    player_turn = False
-      
-                elif player_input == ("retreat" or "run away" or "run"):                                            #if player tries to run
-                    retreat = evacuate(player["speed"], enemy["speed"])
                     turn += 1
                     player_turn = False
 
@@ -942,31 +936,7 @@ def enemy_attack(player_speed, enemy):                           #During an enem
         print("You have " + str(player["health"]) + " hitpoints remaining.")
                           
     else:
-        print(enemy["name"] + " attacked you, but missed.")                                         #inform the player they got lucky and increment the turn
-
-
-def evacuate(player_speed, enemy_speed):                                           #if player tries to retreat
-    retreat = False
-    
-    if player_speed > (enemy_speed + 1):                                                        #if player is 2 points faster, they escape
-        retreat = True
-        print("You easily get away")
-        return (retreat)
-
-    elif (player_speed + 1) < enemy_speed:                                                      #if player is 2 points slower, they cant escape and end the turn.
-        print ("You can't shake 'em!")
-        return (retreat)
-    else:
-        retreat_chance = random.random()                                                    #otherwise they have a 50/50 chance to escape
-                          
-        if retreat_chance > 0.5:
-            retreat = True
-            print("You just barely get away!")
-            return (retreat)              
-        else:
-            print ("You almost get away...")
-            retreat = False
-            return (retreat)                                                                   #player recieves reward for defeating the enemy
+        print(enemy["name"] + " attacked you, but missed.")                                         #inform the player they got unlucky and increment the turn                                                                #player recieves reward for defeating the enemy
 
 
 def defeat():
