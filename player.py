@@ -9,13 +9,13 @@ current_room = rooms["room_centre"]
 player = {
     "name": "",
 
-    "health": 10,
+    "health": 0,
 
-    "speed": 5,
+    "speed": 0,
 
-    "strength": 2,
+    "strength": 0,
 
-    "dexterity": 10,
+    "dexterity": 0,
 
     "equipped": item_wooden_spoon
 }

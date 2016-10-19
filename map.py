@@ -90,7 +90,7 @@ room_boss_ms = {
 
     "name": "Mel and Sue's office",
 
-    "story": "You enter a narrow hallway. As you walk down the path you notice that it\nbecomes continually larger with each step you take. You can hear mumbling\nvoices which get louder and clearer as you approach the room. There you find Mel \nand Sue cracking jokes full of innuendo, some so bad that it pains your ears. It \ntakes them a moment to notice you but they then fall silent as they turn to face \nyou, their eyes piercing like daggers into your chest. You notice a key made of \nshortbread in Mel's jacket pocket. ",
+    "story": "You enter a narrow hallway. As you walk down the path you notice that it\nbecomes continually larger with each step you take. You can hear mumbling\nvoices which get louder and clearer as you approach the room. There you find Mel \nand Sue cracking jokes full of innuendo, some so bad that it pains your ears. It\ntakes them a moment to notice you but they then fall silent as they turn to face\nyou, their eyes piercing like daggers into your chest. You notice a key made of\nshortbread in Mel's jacket pocket.",
 
     "exits": {"east": "room_puzzle_keypad"},
 

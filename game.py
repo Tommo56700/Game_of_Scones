@@ -2,23 +2,100 @@
 
 import random
 import time
+import os
+import sys
 
 from map import rooms, puzzle_rooms, boss_rooms
 from maze import maze_rooms
 from bosses import bosses
 
 from player import *
-from items import *
 from gameparser import *
 #from colorama import Fore, Back, Style
 
 game_stage = 0
 
+def character_creation():   #this function should be run at the start of the game to assign stats to the player
+
+    attributes_left = 4
+
+    print("\n---------------------------- Character Creation ----------------------------")
+    player["name"] = input("\nPlease enter your name: ")
+
+    print ("You may now assign your 4 core attributes: Strength, Dexterity, Speed, Endurance\nRemember your attributes cannot be greater than 10.")
+    time.sleep(1)
+
+    while attributes_left == 4:
+        stats_remaining = 24
+        attributes_left = 4
+        print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
+        print ("Strength affects how much damage your attacks will cause.")
+        player_input = int(input("Please enter your strength: "))
+           
+        if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 4):
+            player["strength"] = player_input
+            attributes_left = 3
+            stats_remaining = stats_remaining - player_input
+            time.sleep(0.5)
+        else:
+            print("Invalid Strength. Please select a valid allocation of points.")
+
+        while attributes_left == 3:
+            print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
+            print("Dexterity affects how likely your attacks are to hit.")
+            player_input = int(input("Please enter your dexterity: "))
+            time.sleep(0.5)
+            
+            if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 3):
+                player["dexterity"] = player_input
+                attributes_left = 2
+                stats_remaining = stats_remaining - player_input
+                time.sleep(0.5)
+            else:
+                print("Invalid Dexterity. Please select a valid allocation of points.")
+                
+            while attributes_left == 2:  
+                print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
+                print ("Speed affects how easy it is to retreat or dodge enemy attacks.")
+                player_input = int(input("Please enter your speed: "))
+                time.sleep(0.5)
+   
+                if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 2):
+                    player["speed"] = player_input
+                    attributes_left = 1
+                    stats_remaining = stats_remaining - player_input
+                else:
+                    print("Invalid Speed. Please select a valid allocation of points.")
+
+                while attributes_left == 1:
+                    print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
+                    print ("Endurance affects how much damage you can take before dieing.")
+                    player_input = int(input("Please enter your endurance: "))
+                    time.sleep(0.5)
+
+                    if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 1):
+                        player["health"] = player_input * 10
+                        player["max_health"] = player["health"]
+                        stats_remaining = stats_remaining - player_input
+                        attributes_left = 0
+
+                    else:
+                        print("Invalid Endurance. Please select a valid allocation of points.")
+                
+
+
+        if not(stats_remaining == 0) and (attributes_left == 0):
+            if input("You aren't using all your attribute points. Would you like to reallocate your attributes?").lower() == "yes":
+                attributes_left = 4
+                stats_remaining = 24
+            
+
+
 def opening():
     """This function prints all of the opening text for the game.
     """
     #input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
-    print("\nWelcome!\n")
+    print("\nWelcome " + player["name"] + "!\n")
     #time.sleep(1)
     print("In a world where baking is the only form of solice, one chef strives to be the best, like no one ever was!")
     #time.sleep(2)
@@ -54,9 +131,6 @@ def opening():
     \n\n ''')
 
     #time.sleep(4)
-
-    #input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
-    print("Quest: BLOOD, SWEAT AND TEARS\nFind your way to Mary Berry to make the ultimate scone!\n")
 
 
 """def init_rooms(rooms, puzzle_rooms, boss_rooms):
@@ -108,8 +182,10 @@ def print_inventory_items(items):
     """
 
     if items:
-        print("You have " + list_of_items(items) + ".\n")
+        print("You have: " + list_of_items(items) + ".\n")
 
+def print_equipped():
+    print("You are wielding the " + player["equipped"]["name"] + ".\n")
 
 def print_room(room):
     """This function takes a room as an input and nicely displays its name
@@ -181,10 +257,20 @@ def print_menu(exits, room_items, inv_items):
     for item in room_items:
         print("TAKE " + item["id"].upper() + " to take " + item["name"] + ".")
 
-    """for item in inv_items:
-        print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")"""
+    for item in inventory:
+        if item != player["equipped"] and item["id"] != "shortbread key" and item["id"] != "gingerbread key":
+            print("EQUIP " + item["id"].upper() + " to equip " + item["name"] + ".")
 
     print("")
+
+
+def print_combat_menu(enemy):
+
+    print("You can:\nATTACK to attack " + enemy["name"] + ".\nCHECK STATS to check your stats.")
+
+    for item in inventory:
+        if item != player["equipped"] and item["id"] != "shortbread key" and item["id"] != "gingerbread key":
+            print("EQUIP " + item["id"].upper() + " to equip " + item["name"] + ".")
 
 
 def is_valid_exit(exits, chosen_exit):
@@ -218,7 +304,7 @@ def execute_go(direction, game_stage):
             print("Moving to " + current_room["name"] + "...")
             return True
         else:
-            print("You cannot go there.")
+            print("You cannot go there.\n")
             return False
 
 
@@ -228,12 +314,16 @@ def execute_take(item_id_1, item_id_2 = ""):
     there is no such item in the room, this function prints
     "You cannot take that."
     """
+    global game_stage
+
     if item_id_2 != "":
         item_id = item_id_1 + " " + item_id_2
     else:
         item_id = item_id_1
 
     if any(d["id"] == item_id for d in current_room["items"]):
+        if item_id == "shortbread key" or item_id == "gingerbread key":
+            game_stage += 1
         for i in range(len(current_room["items"])):
 
             if item_id == current_room["items"][i]["id"]:
@@ -242,41 +332,35 @@ def execute_take(item_id_1, item_id_2 = ""):
                 (current_room["items"]).remove(current_room["items"][i])
                 break
 
-        return False
-
     else:
         print("You cannot take that.\n")
-        return False
     
 
-"""def execute_drop(item_id):
-    This function takes an item_id as an argument and moves this item from the
-    player's inventory to list of items in the current room. However, if there is
-    no such item in the inventory, this function prints "You cannot drop that."
+def execute_equip(item_id_1, item_id_2 = ""):
 
-    if any(d["id"] == item_id for d in inventory):
+    if item_id_2 != "":
+        item_id = item_id_1 + " " + item_id_2
+    else:
+        item_id = item_id_1
+
+    if item_id == player["equipped"]["id"]:
+        print("You already are wielding this weapon.\n")
+
+    elif any(d["id"] == item_id for d in inventory):
         for i in range(len(inventory)):
 
             if item_id == inventory[i]["id"]:
-                (current_room["items"]).append(inventory[i])
-                inventory.remove(inventory[i])
-                print(item_id + " dropped.")
-                break
-
-        return True
+                if item_id == "shortbread key" or item_id == "gingerbread key":
+                    print("You don't think it would be a very good idea to use this key as a weapon.\n")
+                    break
+                else:
+                    player["equipped"] = inventory[i]
+                    print("You equipped the " + player["equipped"]["name"] + ".\n")
+                    break
 
     else:
-        print("You cannot drop that.\n")
-        return False"""
-    
+        print("You cannot equip that.\n")
 
-def execute_help():
-    """If the player asks for help this function is executed. A brief list of possible
-    commands are outputted to show the player what they can do, and a hint is printed
-    if the player is stuck.
-    """
-
-    print(current_room["story"])
 
 
 def execute_command(command, game_stage):
@@ -298,15 +382,25 @@ def execute_command(command, game_stage):
     elif command[0] == "take":
         if len(command) > 1:
             if len(command) == 3:
-                return execute_take(command[1], command[2])
+                execute_take(command[1], command[2])
+                return False
             else:
-                return execute_take(command[1])
+                execute_take(command[1])
+                return False
         else:
             print("Take what?\n")
 
-    elif command[0] == "help":
-        execute_help()
-        return False
+    elif command[0] == "equip":
+        if len(command) > 1:
+            if len(command) == 3:
+                execute_equip(command[1], command[2])
+                return False
+            else:
+                execute_equip(command[1])
+                return False
+        else:
+            print("Equip what?")
+            print_inventory_items(inventory)
 
     else:
         print("This makes no sense.\n")
@@ -346,6 +440,7 @@ def execute_event(event):
 
     print_room(current_room)
     print_inventory_items(inventory)
+    print_equipped()
 
     if event == "maze":
         maze_event(maze_rooms)
@@ -420,24 +515,20 @@ def maze_event(maze_rooms):
 
 
 def boss_paul_event():
-    global game_stage
-
     #Add combat stuff here
     combat(bosses["boss_paul"])
 
     #When boss is defeated:
     print("You have defeated Paul, you can now take their key!\n")
 
-    game_stage += 1
-    execute_take("key_1")
     del current_room["event"]
     current_room["story"] = "You are back in the walk-in freezer. Frozen confectionary lays scattered throughout\nthe room in the aftermath of your battle with Paul.\nThere is nothing of interest here."
 
-    # Show the menu with possible actions
-    print_menu(current_room["exits"], current_room["items"], inventory)
-
     valid_input = False
     while not valid_input:
+        # Show the menu with possible actions
+        print_menu(current_room["exits"], current_room["items"], inventory)
+
         # Ask the player for a response
         command = player_input()
 
@@ -445,25 +536,21 @@ def boss_paul_event():
         valid_input = execute_command(command, game_stage)
 
 
-def boss_ms_event():
-    global game_stage
-    
+def boss_ms_event():    
     #Add combat stuff here
     combat(bosses["boss_ms"])
 
     #When boss is defeated:
     print("You have defeated Mel and Sue, you can now take their key!\n")
 
-    game_stage += 1
-    execute_take("key_2")
     del current_room["event"]
     current_room["story"] = "You enter a narrow hallway. As you walk down the path you notice that it\nbecomes continually larger with each step you take. You are back in the Office,\nyou are relieved that the room now lays silent and empty.\nThere is nothing of interest here."
 
-    # Show the menu with possible actions
-    print_menu(current_room["exits"], current_room["items"], inventory)
-
     valid_input = False
     while not valid_input:
+        # Show the menu with possible actions
+        print_menu(current_room["exits"], current_room["items"], inventory)
+
         # Ask the player for a response
         command = player_input()
 
@@ -490,7 +577,6 @@ def keypad_event():
     global current_room
 
     number = random.randrange (0,9) #random correct number in the range of 0-9 
-    health = 100 #edit this to match game health variable name
     print ("You've encountered a keypad,")# edit this to cahnge introudction of puzzle 
     print ("You've already guessed the first three numbers from the keypad as flour was still on the keys.\n")
     print ("Now you must now guess the last digit:")
@@ -503,10 +589,13 @@ def keypad_event():
             print("\nYou can only input a number:")
 
     while temp != number:
+        if player["health"] <= 0:
+            defeat()
+
         if temp > number: 
             print ("\nThe number may be SMALLER")
-            health = health - 10
-            print ("You have been shocked by the keypad. You lost 10 health, and you have",  health, "remaining")
+            player["health"] -= 10
+            print ("You have been shocked by the keypad. You lost 10 health, and you have",  player["health"], "remaining")
             while True:
                 try:
                     temp = int(input("Guess again:\n> "))
@@ -515,14 +604,15 @@ def keypad_event():
                     print("\nYou can only input a number:")
         else: 
             print("\nThe last number may be LARGER")
-            health = health - 10
-            print ("You have been shocked by the keypad. You lost 10 health, and you have",  health, "remaining")
+            player["health"] -= 10
+            print ("You have been shocked by the keypad. You lost 10 health, and you have",  player["health"], "remaining")
             while True:
                 try:
                     temp = int(input("Guess again:\n> "))
                     break
                 except ValueError:
                     print("\nYou can only input a number:")
+
     print("\nYou have correctly guessed the numberpad code. The door ahead opens rapidly!") #Discription for completing the puzzle
 
     del current_room["event"]
@@ -545,7 +635,7 @@ def wordsearch_event():
     print(" Y Y X N K L N")
     print(" L A M C E P O\n")
 
-    entry = str(input("> ")) 
+    entry = str(input("Guess:\n> ")) 
     while entry.upper() != "SCONE": # loops until SCONE is entered. 
         if entry == "hint": #Game also offers a hint
             print ("\nYou think to yourself... the keyword must be delicious!")
@@ -563,6 +653,7 @@ def wordsearch_event():
 def combat(enemy):               #this code currently serves as a basic framework for what I think should be possible with the combat system. However I can't really go too deep without seeing what else is going on in the program.
     
     print(enemy["intro"])
+    time.sleep(1)
 
     turn = 0                #Initialise setup variables. Ensure turn and player_turn are reset.
     player_turn = False
@@ -571,8 +662,11 @@ def combat(enemy):               #this code currently serves as a basic framewor
     while ((player["health"] > 0) and (enemy["health"] > 0) and (retreat == False)):                     #Until someone dies or retreats, repeat
         time.sleep(1)
         
-        if (turn == 0 and player["speed"] > enemy["speed"]) or (player_turn == True):                             #if players turn
-            player_input = input("What do you want to do?\n")
+        if (turn == 0 and player["speed"] > enemy["speed"]) or (player_turn == True):
+            print("")
+            print_combat_menu(enemy)                             #if players turn
+            player_input = (input("\nWhat do you want to do?\n> ")).lower()
+            print("")
             
             if len(player_input) > 0:
                 if player_input == "attack":                                                                        #if player tries to attack
@@ -585,35 +679,25 @@ def combat(enemy):               #this code currently serves as a basic framewor
                     turn += 1
                     player_turn = False
 
-                elif player_input == "inventory":
-                    show_inv()
-
-                elif player_input == "stats":
+                elif player_input == ("check stats" or "stats"):
                     show_stats()
 
                 else:
-                    player_input = player_input.split()
+                    player_input = normalise_input(player_input)
 
-                    if (player_input[0] == "equip") and (len(player_input) > 0): #if player tries to equip item from their inventory
-                        print()
-                        if len(set(player_input).intersection(inventory)) >= 1:
-                            player["equiped"] = player_input[1]
-                            print ("You equip the "+ str(player["equiped"]))
+                    if (len(player_input) > 1) and (player_input[0] == "equip"): #if player tries to equip item from their inventory
+                        if len(player_input) == 3:
+                            execute_equip(player_input[1], player_input[2])
                         else:
-                            print("You can't equip that.")
-                        print()
+                            execute_equip(player_input[1])
                     else:
                         print("You can't do that.")
 
-        else:
-            print(enemy["name"], "was faster than you and attakced first!")                                                                                           #if enemies turn
+        else:                                                                                           #if enemies turn
             enemy_attack(player["speed"], enemy)
             player_turn = True
 
-    if player["health"] > 0 and retreat == False:                                   #This code handles what happens to the player after the encounter based on if they won, lost or ran.
-            victory(enemy)
-
-    elif player["health"] <= 0:
+    if player["health"] <= 0:
             defeat()
 
 
@@ -622,26 +706,27 @@ def player_attack(player_strength, player_dexterity, enemy):  #if the player att
 
     if (hit_chance >= 50) and (player["equipped"]["id"] == enemy["weakness"]):                                             #if player hits and is using weapon enemy weak to.
         player_attack = int(round(player_strength * 2 + 3 * random.uniform(0.8, 1.2)))                       #calculate damage done by player. Base strength multiplied by 2 due to enemy_weakness, +-20%
-        enemy["health"] = enemy["health"] - player_attack                                       #inflict damage
-            
+        enemy["health"] = enemy["health"] - player_attack                                    #inflict damage
+        if enemy["health"] < 0:
+            enemy["health"] = 0
+
         print("You attack " + enemy["name"] + " for " + str(player_attack) + " points of damage.")                   #inform player of damage dealt
-        time.sleep(2)
+        time.sleep(1)
         print(enemy["name"] + " has " + str(enemy["health"]) + " hitpoints remaining.")
 
     elif hit_chance >= 50:                                                                               #if player hits
-        player_attack = int(round(player_strength + 5) * random.uniform(0.8,1.2))                                                 #calculate damage done by player. Base strength, +-20%
+        player_attack = int(round(player_strength + 5) * random.uniform(0.8, 1.2))                                                 #calculate damage done by player. Base strength, +-20%
         enemy["health"] = enemy["health"] - player_attack                                       #inflict damage
-            
+        if enemy["health"] < 0:
+            enemy["health"] = 0
+
         print("You attack " + enemy["name"] + " for " + str(player_attack) + " points of damage.")                   #inform player of damage dealt
-        time.sleep(2)
+        time.sleep(1)
         print(enemy["name"] + " has " + str(enemy["health"]) + " hitpoints remaining.")
         
     else:
-        print("You missed!")
+        print("You swing the " + player["equipped"]["name"] + " but you miss!")
         time.sleep(1)
-
-    if enemy["health"] < 0:
-        enemy["health"] = 0
 
                           
 def enemy_attack(player_speed, enemy):                           #During an enemy turn
@@ -649,7 +734,7 @@ def enemy_attack(player_speed, enemy):                           #During an enem
                               
     if hit_chance >= 50:
         enemy_attack = int(round(enemy["strength"] * random.uniform(0.8, 1.2)))
-        player["health"] = player["health"] - enemy_attack                                            #If then enemy hits the player. Damage = to enemystrength value +-20%
+        player["health"] = player["health"] - enemy_attack                 #If then enemy hits the player. Damage = to enemystrength value +-20%
                   
         print(enemy["name"] + " attacks you for " + str(enemy_attack) + " points of damage.")            #inform player of damage dealt
         if player["health"] < 0:
@@ -658,7 +743,7 @@ def enemy_attack(player_speed, enemy):                           #During an enem
         print("You have " + str(player["health"]) + " hitpoints remaining.")
                           
     else:
-        print(enemy["name"] + " attacked you, but missed")                                         #inform the player they got lucky and increment the turn
+        print(enemy["name"] + " attacked you, but missed.")                                         #inform the player they got lucky and increment the turn
 
 
 def evacuate(player_speed, enemy_speed):                                           #if player tries to retreat
@@ -682,12 +767,7 @@ def evacuate(player_speed, enemy_speed):                                        
         else:
             print ("You almost get away...")
             retreat = False
-            return (retreat)
-
-
-def victory(enemy):                                                                            #This function should be run in the event the player defeats an enemy.
-    print ("YOU DEFEATED " + enemy["name"]) #+ ".\nYOU RECIEVED: " + enemy["items"])
-    #inventory.append(enemy["items"])                                                                     #player recieves reward for defeating the enemy
+            return (retreat)                                                                   #player recieves reward for defeating the enemy
 
 
 def defeat():                                                                               #This function should be run in the event the player dies
@@ -701,31 +781,19 @@ def defeat():                                                                   
 
 
 def show_stats():                                   #this function is simply used to display the players stats as a reminder
-    print()
-    print (player["name"].upper())
-    print ("HITPOINTS: " + str(player["health"]) +"/" + str(player["max_health"]))
-    print ("STRENGTH: " + str(player["strength"]))
-    print ("DEXTERITY: " + str(player["dexterity"]))
-    print ("SPEED: " + str(player["speed"]))
-    print()
-
-
-def show_inv():                                     #this function is used to display the players inventory as well as their equiped weapon/item
-    print()
-    print ("You are carrying: ")
-    for i in range(len(inventory)):
-        print ("- " + inventory[i])
-    print()
-    print("You currently have equiped: " + str(player["equiped"]["name"]))
-    print()
-
-
+    print(player["name"].upper())
+    print("HITPOINTS: " + str(player["health"]) +"/" + str(player["max_health"]))
+    print("STRENGTH: " + str(player["strength"]))
+    print("DEXTERITY: " + str(player["dexterity"]))
+    print("SPEED: " + str(player["speed"]))
+    print("CURRENTLY WIELDING: " + player["equipped"]["name"])
 
 
 # This is the entry point of our program
 def main():
 
     #rooms = init_rooms(rooms, puzzle_rooms, boss_rooms)
+    character_creation()
     opening()
 
     # Main game loop
@@ -740,6 +808,7 @@ def main():
             # Display game status (room description, inventory etc.)
             print_room(current_room)
             print_inventory_items(inventory)
+            print_equipped()
 
             while not valid_input:
                 # Show the menu with possible actions
@@ -748,6 +817,10 @@ def main():
                 command = player_input()
                 # Execute the player's command
                 valid_input = execute_command(command, game_stage)
+
+        if current_room == rooms["room_puzzle_maze"]:
+            inventory.remove(item_short_key)
+            inventory.remove(item_ginger_key)
 
         if game_stage == 4:
             running = False

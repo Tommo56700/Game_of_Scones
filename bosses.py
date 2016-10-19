@@ -11,7 +11,7 @@ boss_paul = {
 
 	"weakness": "rolling pin",
 
-	"intro": ""
+	"intro": "The zombified abomination reaches out with his grey, frozen hand. You nealry get a soggy\nbottom. You both prepare for battle."
 }
 
 boss_ms = {
@@ -27,7 +27,7 @@ boss_ms = {
 
 	"weakness": "meat ternderiser",
 
-	"intro": ""
+	"intro": "The deadly duo banter with you as you all prepare for battle. Thier jokes are more sad than funny..."
 }
 
 boss_mary = {
@@ -43,7 +43,7 @@ boss_mary = {
 
 	"weakness": "",
 
-	"intro": "The Queen of Scones stands before you, you see behind her a golden brown scroll and can just make out the word butter, seeing the formula up close has done nothing but fill you with detirmination. You both prepare to battle."
+	"intro": "The Queen of Scones stands before you, you see behind her a golden brown scroll and\ncan just make out the word butter, seeing the formula up close has done nothing but\nfill you with determination. You both prepare to battle."
 }
 
 bosses = {

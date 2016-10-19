@@ -1,5 +1,5 @@
 item_short_key = {
-    "id": "key_2",
+    "id": "shortbread key",
 
     "name": "Shortbread Key",
 
@@ -7,7 +7,7 @@ item_short_key = {
 }
 
 item_ginger_key = {
-    "id": "key_1",
+    "id": "gingerbread key",
 
     "name": "Gingerbread Key",
 
