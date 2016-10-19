@@ -1,7 +1,12 @@
-print("") ### Input the intro the puzzle here !!!
+print (“Suddenly you get approached by an elder Baker. “)
+print (“The Baker was disowned by Mary Berry; he tells you that to defeat her you must prepare your mind. “) 
+print ( “The elder Baker challenges you to a game of Hangman, claiming that this will prepare you for the adventure ahead.”)
+print(“ You could just walk off, or you could play the game.”) 
+ ### Input the intro the puzzle here !!!
 longstring = """
 
-()    ()      ()      ()     ()   ()()()()   ()      ()        ()      ()    ()
+()    ()      ()      ()     ()   ()()()(( 
+   ()      ()        ()      ()    ()
 ()    ()     ()()     ()()   ()  ()          ()()  ()()       ()()     ()()  ()
 ()    ()    ()	()    ()  () () ()          ()  ()()  ()     ()  ()    () () ()
 ()()()()   ()()()()   ()   ()() ()  ()()()  ()  ()()  ()    ()()()()   ()  ()()
@@ -164,7 +169,8 @@ while answer:
 			print ("GAME OVER!!!")
 			quit() 
 
-print ("PYTHON is the correcet answer!") ### edit to match game! finaly text upon completion of puzzle
+print ("PYTHON is the correct word!") ### edit to match game! finaly text upon completion of puzzle
+print (" At this point you think to yourself that this game was the biggest waste of time.") 
 
 
 ### May be worth adding loss of health if you fail to complete hangman. In its current state hangman does not effect the payer in any way/. 
