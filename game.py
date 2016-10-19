@@ -607,9 +607,6 @@ def keypad_event():
             print("\nYou can only input a number:")
 
     while temp != number:
-        if player["health"] <= 0:
-            defeat()
-
         if temp > number: 
             print ("\nThe number may be SMALLER")
             player["health"] -= 5
@@ -630,6 +627,9 @@ def keypad_event():
                     break
                 except ValueError:
                     print("\nYou can only input a number:")
+
+        if player["health"] <= 0:
+            defeat()
 
     print("\nYou have correctly guessed the numberpad code. The door ahead opens rapidly!") #Discription for completing the puzzle
 
