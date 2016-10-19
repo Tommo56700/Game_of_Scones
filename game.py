@@ -20,9 +20,9 @@ def character_creation():   #this function should be run at the start of the gam
     attributes_left = 4
 
     print("\n---------------------------- Character Creation ----------------------------")
-    player["name"] = input("\nPlease enter your name: ")
+    player["name"] = input("\nPlease enter your name:\n> ")
 
-    print ("You may now assign your 4 core attributes: Strength, Dexterity, Speed, Endurance\nRemember your attributes cannot be greater than 10.")
+    print ("\nYou may now assign your 4 core attributes: Strength, Dexterity, Speed, Endurance\nRemember your attributes cannot be greater than 10.")
     time.sleep(1)
 
     while attributes_left == 4:
@@ -30,7 +30,14 @@ def character_creation():   #this function should be run at the start of the gam
         attributes_left = 4
         print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
         print ("Strength affects how much damage your attacks will cause.")
-        player_input = int(input("Please enter your strength: "))
+
+        while True:
+            try:
+                player_input = int(input("Please enter your strength:\n> "))
+                break
+            except ValueError:
+                print("\nYou can only input a number:")
+
            
         if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 4):
             player["strength"] = player_input
@@ -43,7 +50,12 @@ def character_creation():   #this function should be run at the start of the gam
         while attributes_left == 3:
             print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
             print("Dexterity affects how likely your attacks are to hit.")
-            player_input = int(input("Please enter your dexterity: "))
+            while True:
+                try:
+                    player_input = int(input("Please enter your dexterity:\n> "))
+                    break
+                except ValueError:
+                    print("\nYou can only input a number:")
             time.sleep(0.5)
             
             if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 3):
@@ -57,7 +69,13 @@ def character_creation():   #this function should be run at the start of the gam
             while attributes_left == 2:  
                 print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
                 print ("Speed affects how easy it is to retreat or dodge enemy attacks.")
-                player_input = int(input("Please enter your speed: "))
+                while True:
+                    try:
+                        player_input = int(input("Please enter your speed:\n> "))
+                        break
+                    except ValueError:
+                        print("\nYou can only input a number:")
+
                 time.sleep(0.5)
    
                 if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 2):
@@ -70,7 +88,12 @@ def character_creation():   #this function should be run at the start of the gam
                 while attributes_left == 1:
                     print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
                     print ("Endurance affects how much damage you can take before dieing.")
-                    player_input = int(input("Please enter your endurance: "))
+                    while True:
+                        try:
+                            player_input = int(input("Please enter your Endurance:\n> "))
+                            break
+                        except ValueError:
+                            print("\nYou can only input a number:")
                     time.sleep(0.5)
 
                     if (player_input <= 10) and (player_input <= stats_remaining) and (player_input > 0) and (attributes_left == 1):
