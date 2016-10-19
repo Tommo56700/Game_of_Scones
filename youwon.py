@@ -4,7 +4,7 @@ def clear():
     print(' \n' * 75)
 
 def you_won():
-  input("Ding dong old chap, the wicked witch is dead! You pry a piece of crumpled\nparchment from her cold, dead hands which reveals to you the secret recipe of\nMary's magical scones. (Flour, butter, milk, eggs). You bake the perfect scone\nand the curse that has plagued this land is forever broken.")
+  input("Ding dong old chap, the wicked witch is dead! You pry a piece of crumpled\nparchment from her cold, dead hands which reveals to you the secret recipe of\nMary's magical scones. (Flour, butter, milk, eggs & dank memes). You bake the perfect scone\nand the curse that has plagued this land is forever broken.")
   clear()
   print('''
   oooooo   oooo                       
