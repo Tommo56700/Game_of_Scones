@@ -248,7 +248,7 @@ def print_menu(exits, room_items, inv_items):
 
     "DROP <ITEM ID> to drop <item name>."
     """
-
+    time.sleep(1)
     print("You can:")
     # Iterate over available exits
     for direction in exits:
@@ -666,7 +666,7 @@ def hangman_event():
     global current_room
     time.sleep(1)
     print("\n---------------------------- Mysterious Room ----------------------------")
-    print("\nYou are stuck at a door. Suddenly you get approached by an faceless man. He tells you he was a baker,\ndisowned by Mary Berry; he tells you that to defeat her you must prepare your mind. The elder Baker challenges\nyou to a game of Hangman, claiming that he will open the door if you win. But if you lose\nHe will kill you, in the name of the faceless god.")
+    print("\nYou are stuck at a door. Suddenly you get approached by an faceless man. He tells you\nhe was a baker, disowned by Mary Berry; he tells you that to defeat her you must prepare your mind.\nThe elder Baker challenges you to a game of Hangman, claiming that he will open the door if you win.\nBut if you lose, he will kill you in the name of the faceless god.")
     time.sleep(2)
 
     longstring = """
@@ -831,7 +831,7 @@ def hangman_event():
                        |_______
                        """ 
                 print (longstring)
-                game_over()
+                defeat()
 
     print ("TYRION is the correct word!") ### edit to match game! finaly text upon completion of puzzle
     print ("\nThe mysterious old man vanishes and you think to yourself that this game was the biggest waste of time...\nBut then you hear a click, and the door files open infront of you!")
