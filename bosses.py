@@ -7,7 +7,7 @@ boss_paul = {
 
 	"dexterity": 5,
 
-	"speed": 4,
+	"speed": 3,
 
 	"weakness": "rolling pin",
 
@@ -17,13 +17,13 @@ boss_paul = {
 boss_ms = {
 	"name": "Mel and Sue",
 
-	"strength": 6,
+	"strength": 4,
 
 	"health": 20,
 
 	"dexterity": 5,
 
-	"speed": 4,
+	"speed": 8,
 
 	"weakness": "meat tenderiser",
 
@@ -33,13 +33,13 @@ boss_ms = {
 boss_mary = {
 	"name": "Mary Berry",
 
-	"strength": 6,
+	"strength": 8,
 
-	"health": 20,
+	"health": 25,
 
-	"dexterity": 5,
+	"dexterity": 7,
 
-	"speed": 4,
+	"speed": 5,
 
 	"weakness": "",
 

@@ -612,8 +612,8 @@ def keypad_event():
 
         if temp > number: 
             print ("\nThe number may be SMALLER")
-            player["health"] -= 10
-            print ("You have been shocked by the keypad. You lost 10 health, and you have",  player["health"], "remaining")
+            player["health"] -= 5
+            print ("You have been shocked by the keypad. You lost 5 health, and you have",  player["health"], "remaining")
             while True:
                 try:
                     temp = int(input("Guess again:\n> "))
@@ -622,8 +622,8 @@ def keypad_event():
                     print("\nYou can only input a number:")
         else: 
             print("\nThe last number may be LARGER")
-            player["health"] -= 10
-            print ("You have been shocked by the keypad. You lost 10 health, and you have",  player["health"], "remaining")
+            player["health"] -= 5
+            print ("You have been shocked by the keypad. You lost 5 health, and you have",  player["health"], "remaining")
             while True:
                 try:
                     temp = int(input("Guess again:\n> "))
