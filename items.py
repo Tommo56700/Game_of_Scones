@@ -15,17 +15,17 @@ item_ginger_key = {
 }
 
 item_rolling_pin = {
-    "id": "rolling_pin",
+    "id": "rolling pin",
 
-    "name": "Rolling Pin",
+    "name": "Wooden Rolling Pin",
 
     "description": "This rolling pin looks quite heavy and would certainly do a lot of damage if bludgeoned relentlessly against someone’s skull"
 }
 
 item_meat_tenderiser = {
-    "id": "meat_tenderiser",
+    "id": "meat tenderiser",
 
-    "name": "Meat Tenderiser",
+    "name": "Bloody Meat Tenderiser",
 
     "description": "There is no meat in sight so you can only presume this hetfy hammer can be used as some sort of deadly weapon."
 }

@@ -221,14 +221,17 @@ def execute_go(direction, game_stage):
             return False
 
 
-def execute_take(item_id):
+def execute_take(item_id_1, item_id_2 = ""):
     """This function takes an item_id as an argument and moves this item from the
     list of items in the current room to the player's inventory. However, if
     there is no such item in the room, this function prints
     "You cannot take that."
     """
+    if item_id_2 != "":
+        item_id = item_id_1 + " " + item_id_2
+    else:
+        item_id = item_id_1
 
-    print(current_room["items"])
     if any(d["id"] == item_id for d in current_room["items"]):
         for i in range(len(current_room["items"])):
 
@@ -238,7 +241,7 @@ def execute_take(item_id):
                 (current_room["items"]).remove(current_room["items"][i])
                 break
 
-        return True
+        return False
 
     else:
         print("You cannot take that.\n")
@@ -293,7 +296,10 @@ def execute_command(command, game_stage):
 
     elif command[0] == "take":
         if len(command) > 1:
-            return execute_take(command[1])
+            if len(command) == 3:
+                return execute_take(command[1], command[2])
+            else:
+                return execute_take(command[1])
         else:
             print("Take what?\n")
 
@@ -505,7 +511,7 @@ def keypad_event():
                     temp = int(input("Guess again:\n> "))
                     break
                 except ValueError:
-                    print("Only input a number")
+                    print("\nYou can only input a number:")
         else: 
             print("\nThe last number may be LARGER")
             health = health - 10
@@ -515,7 +521,7 @@ def keypad_event():
                     temp = int(input("Guess again:\n> "))
                     break
                 except ValueError:
-                    print("Only input a number")
+                    print("\nYou can only input a number:")
     print("\nYou have correctly guessed the numberpad code. The door ahead opens rapidly!") #Discription for completing the puzzle
 
     del current_room["event"]
@@ -574,10 +580,9 @@ def main():
             print_room(current_room)
             print_inventory_items(inventory)
 
-            # Show the menu with possible actions
-            print_menu(current_room["exits"], current_room["items"], inventory)
-
             while not valid_input:
+                # Show the menu with possible actions
+                print_menu(current_room["exits"], current_room["items"], inventory)
                 # Ask the player for a response
                 command = player_input()
                 # Execute the player's command
