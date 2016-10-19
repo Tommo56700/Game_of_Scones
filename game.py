@@ -639,9 +639,7 @@ def keypad_event():
 
     del current_room["event"]
     current_room["story"] = "You descend into the under belly of Mary's fortress of pain. Once again you find\nyourself lurking in the cellar. It's dark and damp, the only light is coming from a few\nflickering candles hung on the walls. Empty crates and wooden pallets scatter the room.\nYou ask yourself why you chose to come back here?"
-    current_room = move(rooms, current_room["exits"], "west")
-
-    #return health
+    #current_room = move(rooms, current_room["exits"], "west")
 
 
 def wordsearch_event():
@@ -669,7 +667,7 @@ def wordsearch_event():
 
     del current_room["event"]
     current_room["story"] = "You are back in the pantry. Surrounding you from all directions are shelves towering\nall the way to the ceiling, stacked full of pastries, cakes, loafs of bread and\na plethora of cooking ingredients. You are reminded of the wordsearch that you\ncompleted and your stomach rumbles. 'Mmm scones...'"
-    current_room = move(rooms, current_room["exits"], "east")
+    #current_room = move(rooms, current_room["exits"], "east")
 
 
 def hangman_event():
