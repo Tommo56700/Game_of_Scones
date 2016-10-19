@@ -5,7 +5,7 @@ import time
 import os
 import sys
 
-from map import rooms, puzzle_rooms, boss_rooms
+from map import rooms
 from maze import maze_rooms
 from bosses import bosses
 
@@ -13,7 +13,6 @@ from player import *
 from gameover import *
 from youwon import *
 from gameparser import *
-#from colorama import Fore, Back, Style
 
 game_stage = 0
 
@@ -119,7 +118,6 @@ def character_creation():   #this function should be run at the start of the gam
 def opening():
     """This function prints all of the opening text for the game.
     """
-    #input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
     print("\nWelcome " + player["name"] + "!\n")
     time.sleep(1)
     print("In a world where baking is the only form of solice, one chef strives to be the best, like no one ever was!")
@@ -206,11 +204,10 @@ def print_room(room):
     # Display room name
     time.sleep(1)
     print("\n\n")
-    #print(Fore.RED + Style.BRIGHT + "---------------------------- " + room["name"].upper() + " ----------------------------" + Style.RESET_ALL)
     print("---------------------------- " + room["name"].upper() + " ----------------------------")
     print("")
+
     # Display room description
-    #print(Fore.YELLOW + room["description"] + Style.RESET_ALL)
     print(room["story"])
     print("")
 
@@ -232,7 +229,6 @@ def print_exit(direction, leads_to):
     GO <EXIT NAME UPPERCASE> to <where it leads>.
     """
 
-    #print(Style.BRIGHT + "GO " + direction.upper() + Style.NORMAL + " to " + leads_to + ".")
     print("GO " + direction.upper() + " to " + leads_to + ".")
 
 
@@ -253,7 +249,6 @@ def print_menu(exits, room_items, inv_items):
     "DROP <ITEM ID> to drop <item name>."
     """
 
-    #print(Fore.YELLOW + "You can:")
     print("You can:")
     # Iterate over available exits
     for direction in exits:
@@ -334,6 +329,7 @@ def execute_take(item_id_1, item_id_2 = ""):
 
             if item_id == current_room["items"][i]["id"]:
                 inventory.append(current_room["items"][i])
+                print("\n" + current_room["items"][i]["description"])
                 print("You take the " + current_room["items"][i]["name"] + "\n")
                 (current_room["items"]).remove(current_room["items"][i])
                 break
@@ -418,11 +414,9 @@ def player_input():
     function before being returned.
     """
 
-    #print("What do you want to do?" + Style.RESET_ALL)
     print("What do you want to do?")
 
     # Read player's input
-    #user_input = input("> " + Fore.CYAN)
     user_input = input("> ")
 
     # Normalise the input
@@ -537,7 +531,8 @@ def maze_event(maze_rooms):
 
 
 def boss_paul_event():
-    #Add combat stuff here
+    rooms["room_puzzle_wordsearch"]["story"] = "You are back in the pantry. Surrounding you from all directions are shelves towering\nall the way to the ceiling, stacked full of pastries, cakes, loafs of bread and\na plethora of cooking ingredients. You are reminded of the wordsearch that you\ncompleted and your stomach rumbles. 'Mmm scones...'"
+
     combat(bosses["boss_paul"])
 
     #When boss is defeated:
@@ -559,7 +554,8 @@ def boss_paul_event():
 
 
 def boss_ms_event():    
-    #Add combat stuff here
+    rooms["room_puzzle_keypad"]["story"] = "You descend into the under belly of Mary's fortress of pain. Once again you find\nyourself lurking in the cellar. It's dark and damp, the only light is coming from a few\nflickering candles hung on the walls. Empty crates and wooden pallets scatter the room.\nYou ask yourself why you chose to come back here?"
+
     combat(bosses["boss_ms"])
 
     #When boss is defeated:
@@ -638,8 +634,6 @@ def keypad_event():
     print("\nYou have correctly guessed the numberpad code. The door ahead opens rapidly!") #Discription for completing the puzzle
 
     del current_room["event"]
-    current_room["story"] = "You descend into the under belly of Mary's fortress of pain. Once again you find\nyourself lurking in the cellar. It's dark and damp, the only light is coming from a few\nflickering candles hung on the walls. Empty crates and wooden pallets scatter the room.\nYou ask yourself why you chose to come back here?"
-    #current_room = move(rooms, current_room["exits"], "west")
 
 
 def wordsearch_event():
@@ -666,8 +660,6 @@ def wordsearch_event():
     print ("You have found the correct word. The door ahead opens rapidly!") # Discription upon completion
 
     del current_room["event"]
-    current_room["story"] = "You are back in the pantry. Surrounding you from all directions are shelves towering\nall the way to the ceiling, stacked full of pastries, cakes, loafs of bread and\na plethora of cooking ingredients. You are reminded of the wordsearch that you\ncompleted and your stomach rumbles. 'Mmm scones...'"
-    #current_room = move(rooms, current_room["exits"], "east")
 
 
 def hangman_event():
