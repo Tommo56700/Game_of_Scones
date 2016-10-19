@@ -21,7 +21,7 @@ room_puzzle_maze = {
 
     "story": "You unlock the double-door with the keys.\nYou try to push the door open but it wont budge, there is something heavy behind it.\nIt's as if something is holding the door...\nYou push with all of your strength...\nThe door gives, and you barge into a dark storeroom filled to the roof with boxes.\nThere is a makeshift path, but you can't see a clear way through.\nIn the distance you can smell freshly baked bread.\n\nMiniquest: FOLLOW YOUR NOSE\nFind your way through the maze of boxes!",
 
-    "exits":  {"north": "room_boss_mary", "south": "room_centre"},
+    "exits": {"north": "room_boss_mary", "south": "room_centre"},
 
     "items": [],
 

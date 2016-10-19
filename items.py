@@ -14,6 +14,14 @@ item_ginger_key = {
     "description": "This key brings you one step closer to star baker, is also delicious with icing."
 }
 
+item_wooden_spoon = {
+    "id": "wooden spoon",
+
+    "name": "Small Wooden Spoon",
+
+    "description": "The wooden spoon looks like it would only be useful for cooking."
+}
+
 item_rolling_pin = {
     "id": "rolling pin",
 

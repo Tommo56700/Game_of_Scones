@@ -5,6 +5,7 @@ import time
 
 from map import rooms, puzzle_rooms, boss_rooms
 from maze import maze_rooms
+from bosses import bosses
 
 from player import *
 from items import *
@@ -18,31 +19,31 @@ def opening():
     """
     #input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
     print("\nWelcome!\n")
-    time.sleep(1)
+    #time.sleep(1)
     print("In a world where baking is the only form of solice, one chef strives to be the best, like no one ever was!")
-    time.sleep(2)
+    #time.sleep(2)
     print("Only one obsticle stands in your way,")
-    time.sleep(2)
+    #time.sleep(2)
     print("Mary Berry and her tyranical rule over the seven kingdoms!")
-    time.sleep(2)
+    #time.sleep(2)
     print("For too long has this evil overlord of the croissant reigned down on all other noble patissiers.")
-    time.sleep(2)
+    #time.sleep(2)
     print("Cursed by an evil spell placed on them, all baking endeavours attempted by anyone other than Mary Berry will ")
-    time.sleep(2)
+    #time.sleep(2)
     print("burn, fall flat or just fail miserably.")
-    time.sleep(2)
+    #time.sleep(2)
     print("It is time for you to rise up and dethrone her by stealing the source of her power,")
-    time.sleep(2)
+    #time.sleep(2)
     print("the recipie for the SCONE OF ENCHANTMENT!")
-    time.sleep(2)
+    #time.sleep(2)
     print("In your travels you will have to solve complexing puzzles,")
-    time.sleep(2)
+    #time.sleep(2)
     print("battle the most ferocious beasts and learn to become a master baker.\n")
-    time.sleep(2)
+    #time.sleep(2)
     print("Will you make it through these rigorous challenges?")
-    time.sleep(2)
+    #time.sleep(2)
     print("Find out now in...\n")
-    time.sleep(2)
+    #time.sleep(2)
     print(''' 
 
  _____                               __   _____                           
@@ -52,7 +53,7 @@ def opening():
 
     \n\n ''')
 
-    time.sleep(4)
+    #time.sleep(4)
 
     #input(Style.BRIGHT + "Quest 1: Blood, Sweat and Tears\nFind all 4 ingredients to make the ultimate scone!\n" + Style.RESET_ALL)
     print("Quest: BLOOD, SWEAT AND TEARS\nFind your way to Mary Berry to make the ultimate scone!\n")
@@ -422,7 +423,7 @@ def boss_paul_event():
     global game_stage
 
     #Add combat stuff here
-    input("Press enter to fight the boss!")
+    combat(bosses["boss_paul"])
 
     #When boss is defeated:
     print("You have defeated Paul, you can now take their key!\n")
@@ -448,7 +449,7 @@ def boss_ms_event():
     global game_stage
     
     #Add combat stuff here
-    input("Press enter to fight the boss!")
+    combat(bosses["boss_ms"])
 
     #When boss is defeated:
     print("You have defeated Mel and Sue, you can now take their key!\n")
@@ -474,7 +475,7 @@ def boss_mary_event():
     global game_stage
     
     #Add combat stuff here
-    input("Press enter to fight Mary!")
+    combat(bosses["boss_mary"])
 
     #When boss is defeated:
     print("You have defeated Mary, you can now take her Super Secret Formula!\n")
@@ -558,6 +559,124 @@ def wordsearch_event():
     current_room["story"] = "You are back in the pantry. Surrounding you from all directions are shelves towering\nall the way to the ceiling, stacked full of pastries, cakes, loafs of bread and\na plethora of cooking ingredients. You are reminded of the wordsearch that you\ncompleted and your stomach rumbles. 'Mmm scones...'"
     current_room = move(rooms, current_room["exits"], "east")
 
+
+def combat(enemy):               #this code currently serves as a basic framework for what I think should be possible with the combat system. However I can't really go too deep without seeing what else is going on in the program.
+    
+    turn = 0                #Initialise setup variables. Ensure turn and player_turn are reset.
+    player_turn = False
+    retreat = False
+
+    while ((player["health"] > 0) and (enemy["health"] > 0) and (retreat == False)):                     #Until someone dies or retreats, repeat
+        time.sleep(1)
+        
+        if (turn == 0 and player["speed"] > enemy["speed"]) or (player_turn == True):                             #if players turn
+            player_input = input("What do you want to do?\n")
+                       
+            if player_input == "attack":                                                                        #if player tries to attack
+                player_attack(player["strength"], player["dexterity"], enemy)
+                turn = turn + 1
+                player_turn = False
+      
+            elif player_input == ("retreat" or "run away" or "run"):                                            #if player tries to run
+                retreat = evacuate(player["speed"], enemy["speed"])
+                turn = turn + 1
+                player_turn = False
+
+            else:
+                print("You can't do that.")
+
+        else:
+            print(enemy["name"], "was faster than you and attakced first!")                                                                                           #if enemies turn
+            enemy_attack(player["speed"], enemy)
+            player_turn = True
+
+    if player["health"] > 0 and retreat == False:                                   #This code handles what happens to the player after the encounter based on if they won, lost or ran.
+            victory(enemy)
+    elif player["health"] <= 0:
+            defeat()
+
+
+def player_attack(player_strength, player_dexterity, enemy):  #if the player attacks          
+    hit_chance = ((player_dexterity - enemy["speed"]) * 10) + (random.random() * 0.75 * 100)                            #calculate chance for player to hit
+
+    if (hit_chance >= 50) and (player["equipped"]["id"] == enemy["weakness"]):                                             #if player hits and is using weapon enemy weak to.
+        player_attack = int(round(player_strength * 2 + 3 * random.uniform(0.8, 1.2)))                       #calculate damage done by player. Base strength multiplied by 2 due to enemy_weakness, +-20%
+        enemy["health"] = enemy["health"] - player_attack                                       #inflict damage
+            
+        print("You attack " + enemy["name"] + " for " + str(player_attack) + " points of damage.")                   #inform player of damage dealt
+        time.sleep(2)
+        print(enemy["name"] + " has " + str(enemy["health"]) + " hitpoints remaining.")
+
+    elif hit_chance >= 50:                                                                               #if player hits
+        player_attack = int(round(player_strength + 3 * random.uniform(0.8, 1.2)))                                                 #calculate damage done by player. Base strength, +-20%
+        enemy["health"] = enemy["health"] - player_attack                                       #inflict damage
+            
+        print("You attack " + enemy["name"] + " for " + str(player_attack) + " points of damage.")                   #inform player of damage dealt
+        time.sleep(2)
+        print(enemy["name"] + " has " + str(enemy["health"]) + " hitpoints remaining.")
+        
+    else:
+        print("You missed!")
+        time.sleep(1)
+
+    if enemy["health"] < 0:
+        enemy["health"] = 0
+
+                          
+def enemy_attack(player_speed, enemy):                           #During an enemy turn
+    hit_chance = ((enemy["dexterity"] - player_speed) * 10) + (random.random() * 100)                    #calculate chance for enemy to hit
+                              
+    if hit_chance >= 50:
+        enemy_attack = int(round(enemy["strength"] * random.uniform(0.8, 1.2)))
+        player["health"] = player["health"] - enemy_attack                                            #If then enemy hits the player. Damage = to enemystrength value +-20%
+                  
+        print(enemy["name"] + " attacks you for " + str(enemy_attack) + " points of damage.")            #inform player of damage dealt
+        if player["health"] < 0:
+            player["health"] = 0
+        time.sleep(2)
+        print("You have " + str(player["health"]) + " hitpoints remaining.")
+                          
+    else:
+        print(enemy["name"] + " attacked you, but missed")                                         #inform the player they got lucky and increment the turn
+
+
+def evacuate(player_speed, enemy_speed):                                           #if player tries to retreat
+    retreat = False
+    
+    if player_speed > (enemy_speed + 1):                                                        #if player is 2 points faster, they escape
+        retreat = True
+        print("You easily get away")
+        return (retreat)
+
+    elif (player_speed + 1) < enemy_speed:                                                      #if player is 2 points slower, they cant escape and end the turn.
+        print ("You can't shake 'em!")
+        return (retreat)
+    else:
+        retreat_chance = random.random()                                                    #otherwise they have a 50/50 chance to escape
+                          
+        if retreat_chance > 0.5:
+            retreat = True
+            print("You just barely get away!")
+            return (retreat)              
+        else:
+            print ("You almost get away...")
+            retreat = False
+            return (retreat)
+
+
+def victory(enemy):                                                                            #This function should be run in the event the player defeats an enemy.
+    print ("YOU DEFEATED " + enemy["name"]) #+ ".\nYOU RECIEVED: " + enemy["items"])
+    #inventory.append(enemy["items"])                                                                     #player recieves reward for defeating the enemy
+
+
+def defeat():                                                                               #This function should be run in the event the player dies
+    print("YOU DIED. THE HOLY SCONE WILL NEVER BE FINISHED. THE WORLD WILL END.")
+    time.sleep(2)
+    player_input = input("Would you like to restart? (y/n)")
+    if player_input.lower() == ("y"):
+        os.execl(sys.executable, sys.executable, * sys.argv)                                    #restarts the program
+    elif player_input.lower() == ("n"):
+        exit()
 
 
 
