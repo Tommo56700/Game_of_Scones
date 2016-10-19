@@ -121,8 +121,8 @@ def print_room(room):
     """
 
     # Display room name
-    print("\n")
     time.sleep(1)
+    print("\n\n")
     #print(Fore.RED + Style.BRIGHT + "---------------------------- " + room["name"].upper() + " ----------------------------" + Style.RESET_ALL)
     print("---------------------------- " + room["name"].upper() + " ----------------------------")
     print("")
@@ -178,7 +178,7 @@ def print_menu(exits, room_items, inv_items):
         print_exit(direction, exit_leads_to(exits, direction))
 
     for item in room_items:
-        print("TAKE " + item["name"].upper() + " to take " + item["name"] + ".")
+        print("TAKE " + item["id"].upper() + " to take " + item["name"] + ".")
 
     """for item in inv_items:
         print("DROP " + item["id"].upper() + " to drop your " + item["name"] + ".")"""
@@ -228,9 +228,10 @@ def execute_take(item_id):
     "You cannot take that."
     """
 
+    print(current_room["items"])
     if any(d["id"] == item_id for d in current_room["items"]):
         for i in range(len(current_room["items"])):
-            
+
             if item_id == current_room["items"][i]["id"]:
                 inventory.append(current_room["items"][i])
                 print("You take the " + current_room["items"][i]["name"] + "\n")
