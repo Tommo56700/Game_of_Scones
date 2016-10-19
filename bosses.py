@@ -9,7 +9,9 @@ boss_paul = {
 
 	"speed": 4,
 
-	"weakness": "rolling pin"
+	"weakness": "rolling pin",
+
+	"intro": ""
 }
 
 boss_ms = {
@@ -23,7 +25,9 @@ boss_ms = {
 
 	"speed": 4,
 
-	"weakness": "meat ternderiser"
+	"weakness": "meat ternderiser",
+
+	"intro": ""
 }
 
 boss_mary = {
@@ -37,7 +41,9 @@ boss_mary = {
 
 	"speed": 4,
 
-	"weakness": ""
+	"weakness": "",
+
+	"intro": "The Queen of Scones stands before you, you see behind her a golden brown scroll and can just make out the word butter, seeing the formula up close has done nothing but fill you with detirmination. You both prepare to battle."
 }
 
 bosses = {

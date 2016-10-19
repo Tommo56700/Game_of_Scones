@@ -17,7 +17,7 @@ def character_creation():   #this function should be run at the start of the gam
     print ("You may now assign your 4 core attributes. Remember your attributes cannot be greater than 10.")
     time.sleep(0.5)
 
-    while attributes_left ==4:
+    while attributes_left == 4:
         stats_remaining = 24
         attributes_left = 4
         print ("ATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
@@ -89,8 +89,8 @@ def player_attack(player_strength, player_dexterity, enemy_speed, enemy_weakness
     hit_chance = ((player_dexterity-enemy_speed)*10) + (random.random()*0.75*100)                            #calculate chance for player to hit
 
     if (hit_chance >= 50) and (player["equiped"] == enemy["weakness"]):                                             #if player hits and is using weapon enemy weak to.
-        player_attack = int(round((((player_strength+5)*random.uniform(0.8,1.2))*2)))                     #calculate damage done by player. Base strength multiplied by 2 due to enemy_weakness, +-20%
-        enemy["health"] = enemy["health"]-player_attack                                       #inflict damage
+        player_attack = int(round(player_strength * 2 + 3 * random.uniform(0.8, 1.2)))                     #calculate damage done by player. Base strength multiplied by 2 due to enemy_weakness, +-20%
+        enemy["health"] = enemy["health"] - player_attack                                       #inflict damage
             
         print("You attack " + enemy_name + " for " + str(player_attack) + " points of damage.")                   #inform player of damage dealt
         time.sleep(2)
@@ -225,7 +225,7 @@ def combat(enemy):               #this code currently serves as a basic framewor
         
         if (turn == 0 and player["speed"] > enemy["speed"]) or (player_turn == True):                             #if players turn
             player_input = input("What do you want to do?\n")
-            if len(player_input) >1:
+            if len(player_input) > 1:
                        
                 if player_input == "attack":                                                                        #if player tries to attack
                     player_attack(player["strength"], player["dexterity"], enemy["speed"], enemy["weakness"], enemy["name"])

@@ -9,11 +9,11 @@ current_room = rooms["room_centre"]
 player = {
     "name": "",
 
-    "health": 20,
+    "health": 10,
 
     "speed": 5,
 
-    "strength": 10,
+    "strength": 2,
 
     "dexterity": 10,
 

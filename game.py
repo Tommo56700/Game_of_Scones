@@ -562,6 +562,8 @@ def wordsearch_event():
 
 def combat(enemy):               #this code currently serves as a basic framework for what I think should be possible with the combat system. However I can't really go too deep without seeing what else is going on in the program.
     
+    print(enemy["intro"])
+
     turn = 0                #Initialise setup variables. Ensure turn and player_turn are reset.
     player_turn = False
     retreat = False
@@ -571,19 +573,37 @@ def combat(enemy):               #this code currently serves as a basic framewor
         
         if (turn == 0 and player["speed"] > enemy["speed"]) or (player_turn == True):                             #if players turn
             player_input = input("What do you want to do?\n")
-                       
-            if player_input == "attack":                                                                        #if player tries to attack
-                player_attack(player["strength"], player["dexterity"], enemy)
-                turn = turn + 1
-                player_turn = False
+            
+            if len(player_input) > 0:
+                if player_input == "attack":                                                                        #if player tries to attack
+                    player_attack(player["strength"], player["dexterity"], enemy)
+                    turn += 1
+                    player_turn = False
       
-            elif player_input == ("retreat" or "run away" or "run"):                                            #if player tries to run
-                retreat = evacuate(player["speed"], enemy["speed"])
-                turn = turn + 1
-                player_turn = False
+                elif player_input == ("retreat" or "run away" or "run"):                                            #if player tries to run
+                    retreat = evacuate(player["speed"], enemy["speed"])
+                    turn += 1
+                    player_turn = False
 
-            else:
-                print("You can't do that.")
+                elif player_input == "inventory":
+                    show_inv()
+
+                elif player_input == "stats":
+                    show_stats()
+
+                else:
+                    player_input = player_input.split()
+
+                    if (player_input[0] == "equip") and (len(player_input) > 0): #if player tries to equip item from their inventory
+                        print()
+                        if len(set(player_input).intersection(inventory)) >= 1:
+                            player["equiped"] = player_input[1]
+                            print ("You equip the "+ str(player["equiped"]))
+                        else:
+                            print("You can't equip that.")
+                        print()
+                    else:
+                        print("You can't do that.")
 
         else:
             print(enemy["name"], "was faster than you and attakced first!")                                                                                           #if enemies turn
@@ -592,6 +612,7 @@ def combat(enemy):               #this code currently serves as a basic framewor
 
     if player["health"] > 0 and retreat == False:                                   #This code handles what happens to the player after the encounter based on if they won, lost or ran.
             victory(enemy)
+
     elif player["health"] <= 0:
             defeat()
 
@@ -608,7 +629,7 @@ def player_attack(player_strength, player_dexterity, enemy):  #if the player att
         print(enemy["name"] + " has " + str(enemy["health"]) + " hitpoints remaining.")
 
     elif hit_chance >= 50:                                                                               #if player hits
-        player_attack = int(round(player_strength + 3 * random.uniform(0.8, 1.2)))                                                 #calculate damage done by player. Base strength, +-20%
+        player_attack = int(round(player_strength + 5) * random.uniform(0.8,1.2))                                                 #calculate damage done by player. Base strength, +-20%
         enemy["health"] = enemy["health"] - player_attack                                       #inflict damage
             
         print("You attack " + enemy["name"] + " for " + str(player_attack) + " points of damage.")                   #inform player of damage dealt
@@ -674,9 +695,30 @@ def defeat():                                                                   
     time.sleep(2)
     player_input = input("Would you like to restart? (y/n)")
     if player_input.lower() == ("y"):
-        os.execl(sys.executable, sys.executable, * sys.argv)                                    #restarts the program
+        os.execl(sys.executable, sys.executable, * sys.argv) #LOOK HERE!                                    #restarts the program
     elif player_input.lower() == ("n"):
         exit()
+
+
+def show_stats():                                   #this function is simply used to display the players stats as a reminder
+    print()
+    print (player["name"].upper())
+    print ("HITPOINTS: " + str(player["health"]) +"/" + str(player["max_health"]))
+    print ("STRENGTH: " + str(player["strength"]))
+    print ("DEXTERITY: " + str(player["dexterity"]))
+    print ("SPEED: " + str(player["speed"]))
+    print()
+
+
+def show_inv():                                     #this function is used to display the players inventory as well as their equiped weapon/item
+    print()
+    print ("You are carrying: ")
+    for i in range(len(inventory)):
+        print ("- " + inventory[i])
+    print()
+    print("You currently have equiped: " + str(player["equiped"]["name"]))
+    print()
+
 
 
 
@@ -711,7 +753,6 @@ def main():
             running = False
 
     print("\nUsing Mary's secret formula, you bake the world's best scone!\n****************** You win! ******************")
-
             
 
 

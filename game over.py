@@ -202,7 +202,7 @@ def game_over():
   clear()
   time.sleep(2)
   print('''
-  	       -/oydmmNNNNNmdyo/-                
+  	              -/oydmmNNNNNmdyo/-                
                :ymNNNNNNNNNNNNNNNNNNNy/`            
             `+mNNNNNNNNNNNNNNNNNNNNNNNNmo`          
            -dNNNNNNNNNNNNNNNNNNNNNNNNNNNNd-         
