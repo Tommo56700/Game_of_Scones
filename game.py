@@ -109,7 +109,7 @@ def character_creation():   #this function should be run at the start of the gam
 
 
         if not(stats_remaining == 0) and (attributes_left == 0):
-            if (input("You aren't using all your attribute points. Type 'yes' if you would like to reallocate your attributes?\n> ")).lower() == "yes":
+            if (input("You aren't using all your attribute points. Type 'yes' if you would like to reallocate your attributes.\n> ")).lower() == "yes":
                 attributes_left = 4
                 stats_remaining = 24
             
