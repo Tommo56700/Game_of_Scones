@@ -10,6 +10,8 @@ from maze import maze_rooms
 from bosses import bosses
 
 from player import *
+from gameover import *
+from youwon import *
 from gameparser import *
 #from colorama import Fore, Back, Style
 
@@ -108,7 +110,7 @@ def character_creation():   #this function should be run at the start of the gam
 
 
         if not(stats_remaining == 0) and (attributes_left == 0):
-            if input("You aren't using all your attribute points. Would you like to reallocate your attributes?").lower() == "yes":
+            if (input("You aren't using all your attribute points. Would you like to reallocate your attributes?\n> ")).lower() == "yes":
                 attributes_left = 4
                 stats_remaining = 24
             
@@ -119,31 +121,31 @@ def opening():
     """
     #input(Fore.YELLOW + Style.BRIGHT + "\nWelcome!\n" + Style.NORMAL)
     print("\nWelcome " + player["name"] + "!\n")
-    #time.sleep(1)
+    time.sleep(1)
     print("In a world where baking is the only form of solice, one chef strives to be the best, like no one ever was!")
-    #time.sleep(2)
+    time.sleep(2)
     print("Only one obsticle stands in your way,")
-    #time.sleep(2)
+    time.sleep(2)
     print("Mary Berry and her tyranical rule over the seven kingdoms!")
-    #time.sleep(2)
+    time.sleep(2)
     print("For too long has this evil overlord of the croissant reigned down on all other noble patissiers.")
-    #time.sleep(2)
+    time.sleep(2)
     print("Cursed by an evil spell placed on them, all baking endeavours attempted by anyone other than Mary Berry will ")
-    #time.sleep(2)
+    time.sleep(2)
     print("burn, fall flat or just fail miserably.")
-    #time.sleep(2)
+    time.sleep(2)
     print("It is time for you to rise up and dethrone her by stealing the source of her power,")
-    #time.sleep(2)
+    time.sleep(2)
     print("the recipie for the SCONE OF ENCHANTMENT!")
-    #time.sleep(2)
+    time.sleep(2)
     print("In your travels you will have to solve complexing puzzles,")
-    #time.sleep(2)
+    time.sleep(2)
     print("battle the most ferocious beasts and learn to become a master baker.\n")
-    #time.sleep(2)
+    time.sleep(2)
     print("Will you make it through these rigorous challenges?")
-    #time.sleep(2)
+    time.sleep(2)
     print("Find out now in...\n")
-    #time.sleep(2)
+    time.sleep(2)
     print(''' 
 
  _____                               __   _____                           
@@ -151,28 +153,9 @@ def opening():
 | |  \/ __ _ _ __ ___   ___    ___ | |_  \ `--.  ___ ___  _ __   ___  ___ 
 | | __ / _` | '_ ` _ \ / _ \  / _ \|  _|  `--. \/ __/ _ \| '_ \ / _ \/ __|\n| |_\ \ (_| | | | | | |  __/ | (_) | |   /\__/ / (_| (_) | | | |  __/\__ \ \n \____/\__,_|_| |_| |_|\___|  \___/|_|   \____/ \___\___/|_| |_|\___||___/	
 
-    \n\n ''')
+    \n ''')
 
-    #time.sleep(4)
-
-
-"""def init_rooms(rooms, puzzle_rooms, boss_rooms):
-    This function randomly selects the puzzle rooms to be used in each location
-    and updates the dict of rooms
-    
-
-    rand_rooms = random.sample(puzzle_rooms, 2)
-
-    exits = [{"east": "room_boss_paul", "west": "room_centre"}, {"west": "room_boss_ms", "east": "room_centre"}]
-
-    directions = ["east", "west"]
-
-    for i in range(len(rand_rooms)):
-        rand_rooms[i]["exits"] = exits[i]
-        rooms["room_centre"]["exits"][directions[i]] = rand_rooms[i]["id"]
-        boss_rooms[i]["exits"][list(reversed(directions))[i]] = rand_rooms[i]["id"]
-
-    return rooms"""
+    time.sleep(4)
 
 
 def list_of_items(items):
@@ -461,25 +444,41 @@ def move(rooms, exits, direction):
 def execute_event(event):
     global current_room
 
-    print_room(current_room)
-    print_inventory_items(inventory)
-    print_equipped()
-
     if event == "maze":
+        print_room(current_room)
+        print_inventory_items(inventory)
+        print_equipped()
         maze_event(maze_rooms)
     elif event == "ms":
+        print_room(current_room)
+        print_inventory_items(inventory)
+        print_equipped()
         boss_ms_event()
     elif event == "paul":
+        print_room(current_room)
+        print_inventory_items(inventory)
+        print_equipped()
         boss_paul_event()
     elif event == "mary":
+        print_room(current_room)
+        print_inventory_items(inventory)
+        print_equipped()
         boss_mary_event()
+    elif event == "hangman":
+        hangman_event()
     elif event == "keypad":
+        print_room(current_room)
+        print_inventory_items(inventory)
+        print_equipped()
         if game_stage == 0:
             rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the\nfar end of the room remains locked. You return to the vast, expansive room\nin the centre of the Red Velvet Keep. The room is airily chilling.\nThe air is filled with flour dust, illuminated by strands of light beaming in\nfrom the windows. The walls are adorned with paintings of baked goods and in\nthe centre is a stone statue of a croquembouche. On the far wall is a large,\narched doorway with two key holes. You have one of the keys."
         else:
             rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the\nfar end of the room remains locked. You return to the vast, expansive room\nin the centre of the Red Velvet Keep. The room is airily chilling.\nThe air is filled with flour dust, illuminated by strands of light beaming in\nfrom the windows. The walls are adorned with paintings of baked goods and in\nthe centre is a stone statue of a croquembouche. On the far wall is a large,\narched doorway with two key holes. You have both of the keys."
         keypad_event()
     elif event == "wordsearch":
+        print_room(current_room)
+        print_inventory_items(inventory)
+        print_equipped()
         if game_stage == 0:
             rooms["room_centre"]["story"] = "You have returned to the room where you started. The arched doorway at the\nfar end of the room remains locked. You return to the vast, expansive room\nin the centre of the Red Velvet Keep. The room is airily chilling.\nThe air is filled with flour dust, illuminated by strands of light beaming in\nfrom the windows. The walls are adorned with paintings of baked goods and in\nthe centre is a stone statue of a croquembouche. On the far wall is a large,\narched doorway with two key holes. You have one of the keys."
         else:
@@ -673,6 +672,183 @@ def wordsearch_event():
     current_room = move(rooms, current_room["exits"], "east")
 
 
+def hangman_event():
+    global current_room
+    time.sleep(1)
+    print("\n---------------------------- Mysterious Room ----------------------------")
+    print("\nYou are stuck at a door. Suddenly you get approached by an faceless man. He tells you he was a baker,\ndisowned by Mary Berry; he tells you that to defeat her you must prepare your mind. The elder Baker challenges\nyou to a game of Hangman, claiming that he will open the door if you win.")
+    time.sleep(2)
+
+    longstring = """
+
+    ()    ()      ()      ()     ()    ()()()     ()    ()         ()      ()    ()
+    ()    ()     ()()     ()()   ()  ()          ()()  ()()       ()()     ()()  ()
+    ()    ()    ()  ()    ()  () () ()          ()  ()()  ()     ()  ()    () () ()
+    ()()()()   ()()()()   ()   ()() ()  ()()()  ()  ()()  ()    ()()()()   ()  ()()
+    ()    ()  ()      ()  ()    ()) ()      () ()    ()    ()  ()      ()  ()   ())
+    ()    () ()        () ()     () ()()()()  ())    ()    () ()        () ()    ()
+
+                         ___________
+                        /          |
+                       |           |
+                       |          (_)
+                       |          \|/
+                       |           |
+                       |          / \\
+                       |_______
+
+    """
+    print(longstring)
+
+    answer = list("TYRION") #Correct answer for hangman
+    answer_coppy = list("TYRION")
+    word = list(len(answer_coppy) * "-")
+    incorrect_letters = "" #Holds list of incorrect letters
+    fails = 0 #counts fails
+    used_letters = ""
+
+    while answer:
+        print("Word: ", "".join(word))
+        print("You have used:", list(used_letters))
+        while True:
+            entry = (input("Enter your guess! ")).upper()
+            if len(entry) != 1 or not entry.isalpha():
+                print("Please enter a single character.")
+            else:
+                break
+
+        used_letters += entry
+    
+
+        if entry in answer:
+            print(entry + " is correct!\n")
+            answer.remove(entry)
+            word[answer_coppy.index(entry)] = entry
+
+        else:
+            fails = fails + 1 #adds 1 to fail
+            incorrect_letters += entry #adds the incorrect letter to the incorrect_letters
+
+            if fails == 1: # depending upon the amount of fails will depend on the image displayed
+                longstring = """ 
+
+
+
+
+                ______
+                """ ### printed the above hangman state
+                print (longstring)
+                print ("Incorrect Letters: " + incorrect_letters) # prints the inccorrect letters entered so far
+
+            elif fails == 2:
+                longstring ="""
+
+
+                        /          
+                       |         
+                       |         
+                       |        
+                       |         
+                       |         
+                       |______
+                """
+                print (longstring)
+                print ("Incorrect Letters: " + incorrect_letters)
+
+            elif fails == 3:
+                longstring ="""
+
+                         ___________
+                        /     
+                       |         
+                       |         
+                       |         
+                       |         
+                       |         
+                       |______
+                       """
+                print (longstring)
+                print ("Incorrect Letters: " + incorrect_letters)
+
+            elif fails == 4:
+                longstring ="""
+                         ___________
+                        /          |
+                       |           |
+                       |         
+                       |         
+                       |        
+                       |           
+                       |______
+                       """
+                print (longstring)
+                print ("Incorrect Letters: " + incorrect_letters)
+
+            elif fails == 5:
+                longstring ="""
+                         ___________
+                        /          |
+                       |           |
+                       |          (_)
+                       |          
+                       |          
+                       |          
+                       |______
+                       """ 
+                print (longstring)
+                print ("Incorrect Letters: " + incorrect_letters)
+
+            elif fails == 6: 
+                longstring ="""
+
+                         ___________
+                        /          |
+                       |           |
+                       |          (_)
+                       |          \|/
+                       |           
+                       |          
+                       |______
+                """
+                print (longstring)
+                print ("Incorrect Letters: " + incorrect_letters)
+
+            elif fails == 7: 
+                longstring ="""
+
+                         ___________
+                        /          |
+                       |           |
+                       |          (_)
+                       |          \|/
+                       |           |
+                       |          
+                       |______
+                       """
+                print (longstring)
+                print ("Incorrect Letters: " + incorrect_letters)
+
+            else: 
+                longstring ="""
+
+                         ___________
+                        /          |
+                       |           |
+                       |          (_)
+                       |          \|/
+                       |           |
+                       |          / \\
+                       |_______
+                       """ 
+                print (longstring)
+                print ("GAME OVER!!!")
+                quit() 
+
+    print ("TYRION is the correct word!") ### edit to match game! finaly text upon completion of puzzle
+    print ("\nThe mysterious old man vanishes and you think to yourself that this game was the biggest waste of time...\nBut then you hear a click, and the door files open infront of you!")
+    current_room["event"] = "mary"
+
+
 def combat(enemy):               #this code currently serves as a basic framework for what I think should be possible with the combat system. However I can't really go too deep without seeing what else is going on in the program.
     
     print(enemy["intro"])
@@ -793,14 +969,22 @@ def evacuate(player_speed, enemy_speed):                                        
             return (retreat)                                                                   #player recieves reward for defeating the enemy
 
 
-def defeat():                                                                               #This function should be run in the event the player dies
+def defeat():
+    game_over()                                                                              #This function should be run in the event the player dies
     print("YOU DIED. THE HOLY SCONE WILL NEVER BE FINISHED. THE WORLD WILL END.")
     time.sleep(2)
-    player_input = input("Would you like to restart? (y/n)")
-    if player_input.lower() == ("y"):
-        os.execl(sys.executable, sys.executable, * sys.argv) #LOOK HERE!                                    #restarts the program
-    elif player_input.lower() == ("n"):
-        exit()
+    restart()
+
+
+def restart():
+    while True:
+        player_input = (input("Would you like to restart? (YES/NO)\n> ")).lower()
+        if player_input == ("yes"):
+            os.execl(sys.executable, sys.executable, * sys.argv)                                   #restarts the program
+        elif player_input == ("no"):
+            exit()
+        else:
+            print("That is not a valid input.\n")
 
 
 def show_stats():                                   #this function is simply used to display the players stats as a reminder
@@ -848,7 +1032,11 @@ def main():
         if game_stage == 4:
             running = False
 
-    print("\nUsing Mary's secret formula, you bake the world's best scone!\n****************** You win! ******************")
+    print("\nUsing Mary's secret formula, you bake the world's best scone!")
+    time.sleep(3)
+
+    you_won()
+    restart()
             
 
 

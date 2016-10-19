@@ -66,7 +66,7 @@ room_boss_mary = {
 
     "exits": {"south": "room_puzzle_maze"},
 
-    "event": "mary",
+    "event": "hangman",
 
     "items": [item_secret_formula]
 }

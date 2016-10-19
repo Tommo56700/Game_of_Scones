@@ -2,6 +2,7 @@ import time
 
 def clear():
     print(' \n' * 75)
+
 def you_won():
   clear()
   print('''
@@ -239,5 +240,3 @@ def you_won():
                                                                         
   ''')
   time.sleep(5)
-you_won()
-input()

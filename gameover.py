@@ -202,7 +202,7 @@ def game_over():
   clear()
   time.sleep(2)
   print('''
-  	              -/oydmmNNNNNmdyo/-                
+  	         -/oydmmNNNNNmdyo/-                
                :ymNNNNNNNNNNNNNNNNNNNy/`            
             `+mNNNNNNNNNNNNNNNNNNNNNNNNmo`          
            -dNNNNNNNNNNNNNNNNNNNNNNNNNNNNd-         
@@ -244,5 +244,3 @@ def game_over():
 
   	''')
   time.sleep(5)
-game_over()
-input()
