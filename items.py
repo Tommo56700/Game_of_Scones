@@ -27,7 +27,7 @@ item_rolling_pin = {
 
     "name": "Wooden Rolling Pin",
 
-    "description": "This rolling pin looks quite heavy and would certainly do a lot of damage if bludgeoned relentlessly against someone’s skull"
+    "description": "This rolling pin looks quite heavy and would certainly do a lot of damage if bludgeoned relentlessly against someone's skull"
 }
 
 item_meat_tenderiser = {
