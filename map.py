@@ -110,8 +110,3 @@ rooms = {
     "room_boss_paul": room_boss_paul,
     "room_boss_ms": room_boss_ms
 }
-
-puzzle_rooms = [room_puzzle_keypad, room_puzzle_wordsearch]
-
-boss_rooms = [room_boss_paul, room_boss_ms, room_boss_mary]
-
