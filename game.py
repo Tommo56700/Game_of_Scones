@@ -1032,9 +1032,6 @@ def main():
         if game_stage == 4:
             running = False
 
-    print("\nUsing Mary's secret formula, you bake the world's best scone!")
-    time.sleep(3)
-
     you_won()
     restart()
             
