@@ -33,7 +33,7 @@ room_puzzle_keypad = {
 
     "name": "The Cellar",
 
-    "story": "You descend into the under belly of Mary's fortress of pain. The cellar is dark\nand damp, the only light is coming from a few flickering candles hung on the walls.\nEmpty crates and wooden pallets scatter the room. You notice on the floor there is an\nelaborate rug, an heirloom of the Berry family no doubt. One of the corners is\nupturned slightly. On the far wall is a door labelled Mel and Sue's Office.",
+    "story": "You descend into the under belly of Mary's fortress of pain. The cellar is dark\nand damp, the only light is coming from a few flickering candles hung on the walls.\nEmpty crates and wooden pallets scatter the room. You notice on the floor there is an\nelaborate rug, an heirloom of the Berry family no doubt. There is a meat tenderiser\nhere. On the far wall is a door labelled Mel and Sue's Office.",
 
     "exits": {"east": "room_centre", "west": "room_boss_ms"},
 
@@ -47,7 +47,7 @@ room_puzzle_wordsearch = {
 
     "name": "Paul's Pantry",
 
-    "story": "You are in the pantry. Surrounding you from all directions are shelves towering\nall the way to the ceiling, stacked full of pastries, cakes, loafs of bread and\na plethora of cooking ingredients. You notice a chest with the lid slightly\najar. On the far wall is a large freezer door.",
+    "story": "You are in the pantry. Surrounding you from all directions are shelves towering\nall the way to the ceiling, stacked full of pastries, cakes, loafs of bread and\na plethora of cooking ingredients. You notice a rolling pin on the table\in the corner. On the far wall is a large freezer door.",
 
     "exits": {"west": "room_centre", "east": "room_boss_paul"},
 

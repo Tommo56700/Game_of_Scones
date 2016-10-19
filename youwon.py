@@ -8,14 +8,12 @@ def you_won():
   clear()
   print('''
   oooooo   oooo                       
-
    ''')
   time.sleep(0.3)
   clear()
   print('''
   oooooo   oooo                       
    `888.   .8'                        
-
    ''')
   time.sleep(0.3)
   clear()
@@ -23,7 +21,6 @@ def you_won():
   oooooo   oooo                       
    `888.   .8'                        
     `888. .8'    .ooooo.  oooo  oooo  
-
    ''')
   time.sleep(0.3)
   clear()
@@ -32,7 +29,6 @@ def you_won():
    `888.   .8'                        
     `888. .8'    .ooooo.  oooo  oooo  
      `888.8'    d88' `88b `888  `888  
-
    ''')
   time.sleep(0.3)
   clear()
@@ -42,7 +38,6 @@ def you_won():
     `888. .8'    .ooooo.  oooo  oooo  
      `888.8'    d88' `88b `888  `888  
       `888'     888   888  888   888  
-
    ''')
   time.sleep(0.3)
   clear()
@@ -53,7 +48,6 @@ def you_won():
      `888.8'    d88' `88b `888  `888  
       `888'     888   888  888   888  
        888      888   888  888   888  
-
    ''')
   time.sleep(0.3)
   clear()
@@ -65,7 +59,6 @@ def you_won():
       `888'     888   888  888   888  
        888      888   888  888   888  
       o888o     `Y8bod8P'  `V88V"V8P' 
-
    ''')
   time.sleep(0.3)
   clear()
@@ -81,7 +74,6 @@ def you_won():
                                       
                                       
   oooooo   oooooo     oooo                       
-
    ''')
   time.sleep(0.3)
   clear()
@@ -98,7 +90,6 @@ def you_won():
                                       
   oooooo   oooooo     oooo                       
    `888.    `888.     .8'                        
-
    ''')
   time.sleep(0.3)
   clear()
@@ -116,7 +107,6 @@ def you_won():
   oooooo   oooooo     oooo                       
    `888.    `888.     .8'                        
     `888.   .8888.   .8'    .ooooo.  ooo. .oo.   
-
    ''')
   time.sleep(0.3)
   clear()
@@ -135,7 +125,6 @@ def you_won():
    `888.    `888.     .8'                        
     `888.   .8888.   .8'    .ooooo.  ooo. .oo.   
      `888  .8'`888. .8'    d88' `88b `888P"Y88b  
-
    ''')
   time.sleep(0.3)
   clear()
@@ -155,7 +144,6 @@ def you_won():
     `888.   .8888.   .8'    .ooooo.  ooo. .oo.   
      `888  .8'`888. .8'    d88' `88b `888P"Y88b  
       `888.8'  `888.8'     888   888  888   888  
-
    ''')
   time.sleep(0.3)
   clear()
@@ -176,7 +164,6 @@ def you_won():
      `888  .8'`888. .8'    d88' `88b `888P"Y88b  
       `888.8'  `888.8'     888   888  888   888  
        `888'    `888'      888   888  888   888  
-
    ''')
   time.sleep(0.3)
   clear()
