@@ -89,7 +89,7 @@ def character_creation():   #this function should be run at the start of the gam
 
                 while attributes_left == 1:
                     print ("\nATTRIBUTE POINTS REMAINING: " + str(stats_remaining))
-                    print ("Endurance affects how much damage you can take before dieing.")
+                    print ("Endurance affects how much damage you can take before dying.")
                     while True:
                         try:
                             player_input = int(input("Please enter your Endurance:\n> "))
@@ -110,7 +110,7 @@ def character_creation():   #this function should be run at the start of the gam
 
 
         if not(stats_remaining == 0) and (attributes_left == 0):
-            if (input("You aren't using all your attribute points. Would you like to reallocate your attributes?\n> ")).lower() == "yes":
+            if (input("You aren't using all your attribute points. Type 'yes' if you would like to reallocate your attributes?\n> ")).lower() == "yes":
                 attributes_left = 4
                 stats_remaining = 24
             
