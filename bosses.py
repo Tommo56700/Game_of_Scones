@@ -1,11 +1,11 @@
 boss_paul = {
 	"name": "Paul Hollywood",
 
-	"strength": 6,
+	"strength": 7,
 
-	"health": 20,
+	"health": 15,
 
-	"dexterity": 5,
+	"dexterity": 6,
 
 	"speed": 3,
 
@@ -23,7 +23,7 @@ boss_ms = {
 
 	"dexterity": 5,
 
-	"speed": 8,
+	"speed": 6,
 
 	"weakness": "meat tenderiser",
 
